@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../../Pictures/logo-2078018_1280.png" />
+      </image>
+   </ImageView>
+
+    <Label fx:id="lbl_log_inici" text="INICI SESSIO" textFill="#0017ff">
+      <VBox.margin>
+         <Insets />
+      </VBox.margin>
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font>
+    </Label>
+
+   <TextField fx:id="txt_log_nom" promptText="Nom d'usuari" style="-fx-background-color: #BCFCFF;">
+      <font>
+         <Font size="16.0" />
+      </font>
+      <VBox.margin>
+         <Insets left="100.0" right="100.0" />
+      </VBox.margin>
+   </TextField>
+
+   <TextField fx:id="txt_log_password" promptText="Contrasenya" style="-fx-background-color: #BCFCFF;">
+      <font>
+         <Font size="16.0" />
+      </font>
+      <VBox.margin>
+         <Insets left="100.0" right="100.0" />
+      </VBox.margin>
+   </TextField>
+
+    <Button fx:id="btn_log_login" onAction="#onLoginButtonClick" prefHeight="26.0" prefWidth="266.0" style="-fx-background-color: #0017ff;" text="Login" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font>
+    </Button>
+
+   <Label id="lbl_log_response" fx:id="lbl_log_response">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Label>
+</VBox>
