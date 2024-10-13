@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.LoginClient;
 
 public class PrincipalController {
 
@@ -49,6 +50,12 @@ public class PrincipalController {
     @FXML
     private TextField txt_princ_buscar;
 
+    String jwtToken;
+
+    public void setJwtToken(String token){
+        jwtToken = token;
+    }
+
     @FXML
     void onCloseButtonClick(ActionEvent event) {
         //Close the login window.
@@ -56,4 +63,56 @@ public class PrincipalController {
         Stage stageLogin = (Stage) source.getScene().getWindow();
         stageLogin.close();
     }
+
+
+    @FXML
+    void onBorrarEsdevenimentButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onBorrarTreballadorButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onLlistarEsdevenimentButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onLlistarTreballadorButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onModificarEsdevenimentButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onModificarTreballadorButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onNouEsdevenimentButtonClick(ActionEvent event) {
+        System.out.println(jwtToken);
+    }
+
+    @FXML
+    void onNouTreballadorButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onVeureEsdevenimentButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onVeureTreballadorButtonClick(ActionEvent event) {
+
+    }
+
 }

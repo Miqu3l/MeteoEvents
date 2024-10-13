@@ -33,27 +33,27 @@
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btn_princ_nou_esd" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Nou esdeveniment">
+                  <Button fx:id="btn_princ_nou_esd" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onNouEsdevenimentButtonClick" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Nou esdeveniment">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_princ_modificar_esd" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Modificar esdeveniment">
+                  <Button fx:id="btn_princ_modificar_esd" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" onAction="#onModificarEsdevenimentButtonClick" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Modificar esdeveniment">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_princ_borrar_esd" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Borrar esdeveniment">
+                  <Button fx:id="btn_princ_borrar_esd" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="55.0" mnemonicParsing="false" onAction="#onBorrarEsdevenimentButtonClick" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Borrar esdeveniment">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_princ_veure_esd" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Veure esdeveniment">
+                  <Button fx:id="btn_princ_veure_esd" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" onAction="#onVeureEsdevenimentButtonClick" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Veure esdeveniment">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_princ_llistar_esd" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Llistar esdeveniments">
+                  <Button fx:id="btn_princ_llistar_esd" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#onLlistarEsdevenimentButtonClick" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Llistar esdeveniments">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>
@@ -67,27 +67,27 @@
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btn_princ_nou_treb" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Nou treballador">
+                  <Button fx:id="btn_princ_nou_treb" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onNouTreballadorButtonClick" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Nou treballador">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_princ_modificar_treb" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Modificar treballador">
+                  <Button fx:id="btn_princ_modificar_treb" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" onAction="#onModificarTreballadorButtonClick" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Modificar treballador">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_princ_borrar_treb" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Borrar treballador">
+                  <Button fx:id="btn_princ_borrar_treb" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="55.0" mnemonicParsing="false" onAction="#onBorrarTreballadorButtonClick" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Borrar treballador">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_princ_veure_treb" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Veure treballador">
+                  <Button fx:id="btn_princ_veure_treb" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" onAction="#onVeureTreballadorButtonClick" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Veure treballador">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_princ_llistar_treb" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Llistar treballadors">
+                  <Button fx:id="btn_princ_llistar_treb" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#onLlistarTreballadorButtonClick" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: BCFCFF;" text="Llistar treballadors">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>

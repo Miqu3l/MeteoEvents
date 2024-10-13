@@ -1,6 +1,6 @@
 package utilities;
 
-public class Paths {
+public class PathsViews {
 
     public static final String LOGIN_VIEW = "login-view.fxml";
 
