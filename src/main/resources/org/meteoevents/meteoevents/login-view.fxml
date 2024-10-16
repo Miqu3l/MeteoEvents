@@ -53,7 +53,7 @@
       </font>
     </Button>
 
-   <Label id="lbl_log_response" fx:id="lbl_log_response" textFill="RED">
+   <Label id="lbl_log_response" fx:id="lbl_log_response" textFill="RED" visible="false">
       <font>
          <Font size="16.0" />
       </font>

@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import utilities.URLRequests;
 import java.io.IOException;
 import java.net.URI;
@@ -14,10 +16,10 @@ public class LoginClient {
     private static final String URL_LOGIN = URLRequests.LOGIN_URL;
     private final HttpClient httpClient;
     private String jwtToken;
+    private String funcionalID;
 
     public LoginClient() {
         this.httpClient = HttpClient.newHttpClient();
-        this.jwtToken = null;
     }
 
     public String loginUsuari(String nomUsuari, String contrasenya) throws IOException, InterruptedException {
@@ -36,16 +38,34 @@ public class LoginClient {
         // Envia la petició i obté la resposta
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // Verifica l'estat de la resposta, guarda el token i retorna un missatge amb la confirmació de la connexió
-        if (response.statusCode() == 200) {
-            jwtToken = response.body();
-            System.out.println("Login correcto: " + response.body());
-            return "Login correcte";
-        } else if (response.statusCode() == 401) {
-            return "Credencials incorrectes";
-        } else {
-            return "Error: " + response.statusCode();
+        // Verifica l'estat de la resposta, guarda el token, guarda el tipus d'usuari
+        // i retorna un missatge amb la confirmació de la connexió
+        switch (response.statusCode()) {
+            case 200:
+                //Jackson per extreure la informació del JSON retornat
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode jsonNode = objectMapper.readTree(response.body());
+                jwtToken = jsonNode.get("token").asText();
+                funcionalID = jsonNode.get("funcionalId").asText();
+                return "Login correcte";
+            case 401:
+                return "Credencials incorrectes";
+            case 403:
+                return "Acces denegat";
+            case 500:
+                return "Error en el servidor";
+            default:
+                return "Error desconegut: " + response.statusCode();
         }
+
+    }
+
+    public String getJwtToken() {
+        return jwtToken;
+    }
+
+    public String getFuncionalID() {
+        return funcionalID;
     }
 }
 

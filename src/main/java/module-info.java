@@ -6,6 +6,7 @@ module org.meteoevents.meteoevents {
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
     requires java.net.http;
+    requires com.fasterxml.jackson.databind;
 
     opens org.meteoevents.meteoevents to javafx.fxml;
     exports org.meteoevents.meteoevents;
