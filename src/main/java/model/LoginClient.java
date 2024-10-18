@@ -11,6 +11,19 @@ import java.net.http.HttpResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Classe que gestiona el procés d'inici de sessió d'un usuari, mitjançant una sol·licitud HTTP,
+ * al servidor de l'aplicació.
+ *
+ * Envia l'usuari i la contrasenya. Si l'usuari s'autentica correctament, retorna en format Json
+ * el token JWT de sessió i el tipus d'usuari. A continuació, extreu aquestes dades i retorna un
+ * missatge confirmant l'èxit de la connexió.
+ *
+ * En cas d'haver-hi algun error durant la connexió, retorna un missatge amb la causa de l'errada.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
+ */
 public class LoginClient {
 
     private static final String URL_LOGIN = URLRequests.LOGIN_URL;
@@ -18,10 +31,25 @@ public class LoginClient {
     private String jwtToken;
     private String funcionalID;
 
+    /**
+     * Constructor. Crea una nova instància de LoginClient i inicialitza el client HTTP.
+     */
     public LoginClient() {
         this.httpClient = HttpClient.newHttpClient();
     }
 
+    /**
+     * Inicia sessió a l'aplicació amb les credencials proporcionades.
+     * Guarda en memòria el token i el tipus d'usuari que es vol connectar.
+     *
+     * @param nomUsuari El nom d'usuari de l'usuari que vol iniciar sessió.
+     * @param contrasenya La contrasenya de l'usuari que vol iniciar sessió.
+     * @return Un missatge que indica l'estat de l'inici de sessió.
+     * @throws IOException Si es produeix un error d'entrada/sortida durant l'enviament
+     *                     de la petició HTTP.
+     * @throws InterruptedException Si el fil que s'està executant es veu interromput
+     *                              mentre espera la resposta del servidor.
+     */
     public String loginUsuari(String nomUsuari, String contrasenya) throws IOException, InterruptedException {
 
         // Codifica els paràmetre per obtindre una URL correcta en cas de trobar algun caràcter especial
@@ -60,36 +88,21 @@ public class LoginClient {
 
     }
 
+    /**
+     * Retorna el token JWT obtingut després d'un inici de sessió correcte.
+     *
+     * @return El token JWT com a cadena de text.
+     */
     public String getJwtToken() {
         return jwtToken;
     }
 
+    /**
+     * Retorna el tipus d'usuari que ha iniciat sessió.
+     *
+     * @return L'ID funcional com a cadena de text.
+     */
     public String getFuncionalID() {
         return funcionalID;
     }
 }
-
-/*
- // Método para hacer peticiones autenticadas con el JWT
-    public String peticionAutenticada(String resourceUrl) throws IOException, InterruptedException {
-        if (jwtToken == null) {
-            return "Error: No hay token JWT. Debes hacer login primero.";
-        }
-
-        // Crear petición HTTP GET con el encabezado Authorization Bearer
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(resourceUrl))
-                .header("Authorization", "Bearer " + jwtToken)  // Enviar el JWT
-                .GET()
-                .build();
-
-        // Enviar la petición
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() == 200) {
-            return "Respuesta de recurso autenticado: " + response.body();
-        } else {
-            return "Error: " + response.statusCode();
-        }
-    }
- */

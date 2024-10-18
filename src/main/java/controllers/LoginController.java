@@ -15,24 +15,46 @@ import javafx.stage.Stage;
 import utilities.PathsViews;
 import java.io.IOException;
 
+/**
+ * Controlador de la vista de login.
+ * Gestiona autenticació de l'usuari amb la base de dades.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
+ */
 public class LoginController {
 
+    /** Missatge de resposta del servidor. */
     @FXML
     private Label lbl_log_response;
 
+    /** Camp de text on s'introdueix el nom d'usuari. */
     @FXML
     private TextField txt_log_nom;
 
+    /** Camp de text on s'introdueix la contrasenya de l'usuari. */
     @FXML
     private PasswordField txt_log_password;
 
+    /** Instància de la classe LoginClient per gestionar la petició de login. */
     private LoginClient login;
 
+    /**
+     * Mètode que s'executa en crear el controlador i que inicialitza la instància de LoginClient.
+     */
     @FXML
     protected void initialize() {
         login = new LoginClient();
     }
 
+    /**
+     * Gestiona l'esdeveniment del botó de login. Autentica l'usuari amb les credencials introduïdes.
+     * Si el login és correcte, es tanca la finestra de login i s'obre la finestra corresponent
+     * segons el tipus d'usuari.
+     * Si el login falla, es mostra un missatge d'error.
+     *
+     * @param event L'esdeveniment que s'activa quan es fa clic al botó de login.
+     */
     @FXML
     protected void onLoginButtonClick(ActionEvent event) {
         try {
@@ -58,6 +80,11 @@ public class LoginController {
         }
     }
 
+    /**
+     * Carrega i envia el token JWT a la nova finestra.
+     *
+     * @param path El camí de la vista a carregar.
+     */
     private void loadScreen(String path){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(path));
@@ -81,6 +108,11 @@ public class LoginController {
         }
     }
 
+    /**
+     * Mostra un missatge a l'usuari al label de resposta i neteja els camps de text.
+     *
+     * @param message El missatge que es mostrarà a l'usuari.
+     */
     private void setMessage(String message){
         lbl_log_response.setVisible(true);
         lbl_log_response.setText(message);
