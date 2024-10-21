@@ -2,19 +2,12 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.meteoevents.meteoevents.App;
-import utilities.PathsViews;
-import utilities.URLRequests;
+import model.LoginClient;
 import java.io.IOException;
-import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 /**
  * Controlador per a la gestió dels esdeveniments de la vista de la pàgina principal
@@ -31,11 +24,14 @@ public class PrincipalController {
     @FXML
     private AnchorPane anch_princ_main;
 
+    @FXML
+    Button btn_princ_close;
+
     /** Token JWT utilitzat per a l'autenticació de l'usuari. */
     String jwtToken;
 
     private HttpClient httpClient;
-    private HttpResponse<String> response;
+    LoginClient loginClient;
 
     /**
      * Mètode que s'executa en crear el controlador i que inicialitza la variable HttpClient.
@@ -43,6 +39,7 @@ public class PrincipalController {
     @FXML
     protected void initialize() {
         httpClient = HttpClient.newHttpClient();
+        loginClient = new LoginClient();
     }
 
     /**
@@ -54,33 +51,10 @@ public class PrincipalController {
      */
     @FXML
     void onCloseButtonClick(ActionEvent event) {
-
-        //Petició de logout al backend
-        try{
-            HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .uri(URI.create(URLRequests.LOGOUT_URL))
-                    .header("Authorization", "Bearer " + jwtToken)
-                    .header("Content-Type", "application/x-www-form-urlencoded")
-                    .POST(HttpRequest.BodyPublishers.noBody())
-                    .build();
-
-            response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
-            //Esborra el token
-            setJwtToken("");
-
-            //Tanca la finestra actual.
-            Node source = (Node) event.getSource();
-            Stage stageLogin = (Stage) source.getScene().getWindow();
-            stageLogin.close();
-
-            //S'obre la finestra de login
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(PathsViews.LOGIN_VIEW));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-            stage.setTitle("Meteo Events");
-            stage.setScene(scene);
-            stage.show();
+        try {
+            Stage stageActual = (Stage) btn_princ_close.getScene().getWindow();
+            stageActual.close();
+            loginClient.logoutUsuari(jwtToken);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -93,7 +67,7 @@ public class PrincipalController {
      */
     @FXML
     void onBorrarEsdevenimentButtonClick(ActionEvent event) {
-        // Implementació pendent
+        // TODO
     }
 
     /**
@@ -103,7 +77,7 @@ public class PrincipalController {
      */
     @FXML
     void onBorrarTreballadorButtonClick(ActionEvent event) {
-        // Implementació pendent
+        // TODO
     }
 
     /**
@@ -113,7 +87,7 @@ public class PrincipalController {
      */
     @FXML
     void onLlistarEsdevenimentButtonClick(ActionEvent event) {
-        // Implementació pendent
+        // TODO
     }
 
     /**
@@ -123,7 +97,7 @@ public class PrincipalController {
      */
     @FXML
     void onLlistarTreballadorButtonClick(ActionEvent event) {
-        // Implementació pendent
+        // TODO
     }
 
     /**
@@ -133,7 +107,7 @@ public class PrincipalController {
      */
     @FXML
     void onModificarEsdevenimentButtonClick(ActionEvent event) {
-        // Implementació pendent
+        // TODO
     }
 
     /**
@@ -143,7 +117,7 @@ public class PrincipalController {
      */
     @FXML
     void onModificarTreballadorButtonClick(ActionEvent event) {
-        // Implementació pendent
+        // TODO
     }
 
     /**
@@ -153,6 +127,7 @@ public class PrincipalController {
      */
     @FXML
     void onNouEsdevenimentButtonClick(ActionEvent event) {
+        // TODO
         System.out.println(jwtToken);
     }
 
@@ -163,7 +138,7 @@ public class PrincipalController {
      */
     @FXML
     void onNouTreballadorButtonClick(ActionEvent event) {
-        // Implementació pendent
+        // TODO
     }
 
     /**
@@ -173,7 +148,7 @@ public class PrincipalController {
      */
     @FXML
     void onVeureEsdevenimentButtonClick(ActionEvent event) {
-        // Implementació pendent
+        // TODO
     }
 
     /**
@@ -183,7 +158,7 @@ public class PrincipalController {
      */
     @FXML
     void onVeureTreballadorButtonClick(ActionEvent event) {
-        // Implementació pendent
+        // TODO
     }
 
     /**
