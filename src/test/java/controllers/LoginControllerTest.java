@@ -33,9 +33,6 @@ class LoginControllerTest {
     private static final String INCORRECT_CREDENTIAL_MESSAGE = "Credencials incorrectes";
     private static final String ADMIN_FUNCTIONAL_ID = "ADM";
     private static final String STANDARD_FUNCTIONAL_ID = "USR";
-    private static final String VALID_TOKEN = "validToken";
-    private static final String DESCONNECTAT = "Usuari desconnectat";
-    private static final String URL_LOGOUT = URLRequests.LOGOUT_URL;
 
     private LoginClient loginClient;
     private HttpClient mockHttpClient;
@@ -144,18 +141,3 @@ class LoginControllerTest {
         }
     }
 }
-
-
-
-
-    /*
-    @Test
-    public void testLogoutSuccessfull() throws IOException, InterruptedException {
-        loginClient.loginUsuari(VALID_ADMIN_USERNAME,VALID_ADMIN_PASSWORD);
-        loginClient.setJwtToken(VALID_TOKEN);
-        String result = loginClient.logoutUsuari(VALID_TOKEN);
-
-        assertThat(result).isEqualTo("Usuari desconnectat");
-        assertThat(loginClient.getJwtToken()).isEmpty();
-    }
-     */

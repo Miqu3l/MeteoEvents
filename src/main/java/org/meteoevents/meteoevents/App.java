@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * Classe encarregada d'iniciar el programa i la interfície gràfica d'usuari per a l'inici de sessió.
- * En iniciar l'aplicació, es carrega la vista d'inici de sessió mitjançant el fitxer login-view.fxml,
+ * En inicialitzar l'aplicació, es carrega la vista d'inici de sessió mitjançant el fitxer login-view.fxml,
  * on s'ha d'introduïr el nom d'usuari i la contrasenya.
  *
  * @author Miguel Rodríguez Garriga

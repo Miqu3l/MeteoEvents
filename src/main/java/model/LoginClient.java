@@ -54,6 +54,8 @@ public class LoginClient {
 
     /**
      * Constructor. Crea una nova instància de LoginClient i inicialitza el client HTTP.
+     *
+     * @param httpClient Client http per gestionar les connexions amb el backend.
      */
     public LoginClient(HttpClient httpClient) {
         this.httpClient = httpClient;
@@ -108,6 +110,19 @@ public class LoginClient {
         }
     }
 
+    /**
+     * Tanca la sessió amb el servidor i torna a la finestra de login.
+     * Esborra de memòria el token de la sessió.
+     *
+     * @param token El token de sessió que es vol esborrar
+     * @return Un missatge que indica l'estat del tancament de sessió.
+     *
+     * @throws IOException Si es produeix un error d'entrada/sortida durant l'enviament
+     *                     de la petició HTTP.
+     * @throws InterruptedException Si el fil que s'està executant es veu interromput
+     *                              mentre espera la resposta del servidor.
+     */
+
     public String logoutUsuari(String token) throws IOException, InterruptedException {
 
         //Petició de logout al backend
@@ -135,6 +150,16 @@ public class LoginClient {
         }
     }
 
+    /**
+     * Mètode encarregat de la càrrega de la pantalla de login una vegada s'ha fet logout
+     * amb el servidor
+     *
+     * @throws IOException Si es produeix un error d'entrada/sortida durant l'enviament
+     * de la petició HTTP.
+     * @throws InterruptedException Si el fil que s'està executant es veu interromput
+     * mentre espera la resposta del servidor.
+     */
+
     public void loadLoginScreen() throws IOException, InterruptedException{
         //S'obre la finestra de login
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(PathsViews.LOGIN_VIEW));
@@ -156,7 +181,11 @@ public class LoginClient {
 
     /**
      * Setter del token JWT.
+     *
+     * @param jwtToken El token JWT a establir.
+     * @return El token com a cadena de text.
      */
+
     public void setJwtToken(String jwtToken) {
         this.jwtToken = jwtToken;
     }
