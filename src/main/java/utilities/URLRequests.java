@@ -2,6 +2,9 @@ package utilities;
 
 /**
  * Classe que conté les URL per a les peticions a l'API.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 public class URLRequests {
 

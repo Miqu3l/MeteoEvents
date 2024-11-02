@@ -90,7 +90,7 @@ public class LoginClient {
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         // Verifica l'estat de la resposta, guarda el token, guarda el tipus d'usuari
-        // i retorna un missatge amb la confirmació de la connexió
+        // i retorna un missatge amb ladminaa confirmació de la connexió
         switch (response.statusCode()) {
             case 200:
                 //Jackson per extreure la informació del JSON retornat

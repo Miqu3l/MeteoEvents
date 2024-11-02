@@ -12,4 +12,10 @@ module org.meteoevents.meteoevents {
     exports org.meteoevents.meteoevents;
     exports controllers;
     opens controllers to javafx.fxml;
+    exports controllers.user;
+    opens controllers.user to javafx.fxml;
+    exports controllers.event;
+    opens controllers.event to javafx.fxml;
+    exports controllers.measure;
+    opens controllers.measure to javafx.fxml;
 }

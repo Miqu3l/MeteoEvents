@@ -2,10 +2,14 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.LoginClient;
+import utilities.PathsViews;
+
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -23,7 +27,7 @@ public class PrincipalStandardController {
 
     /** Contenidor de la vista. */
     @FXML
-    private AnchorPane anch_princ_main;
+    private AnchorPane anch_princStandard_main;
 
     @FXML
     private Button btn_princ_close;
@@ -70,7 +74,7 @@ public class PrincipalStandardController {
      */
     @FXML
     void onLlistarEsdevenimentButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.EVENT_LIST_VIEW);
         System.out.println(jwtToken);
     }
 
@@ -81,8 +85,34 @@ public class PrincipalStandardController {
      */
     @FXML
     void onVeureEsdevenimentButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.EVENT_SEARCH_VIEW);
         System.out.println(jwtToken);
+    }
+
+    /**
+     * Carrega un nou panell.
+     *
+     * @param path El camí de la vista a carregar.
+     */
+    private void loadPanel(String path) {
+        try {
+            // Carregar l'archiu FXML y obtindre el node arrel
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
+            Node content = fxmlLoader.load();
+
+            // Netejar el contingut actual i afegir el nou AnchorPane
+            anch_princStandard_main.getChildren().clear();
+            anch_princStandard_main.getChildren().add(content);
+
+            // Ajustar el contingut a la mida del contenidor
+            AnchorPane.setTopAnchor(content, 0.0);
+            AnchorPane.setBottomAnchor(content, 0.0);
+            AnchorPane.setLeftAnchor(content, 0.0);
+            AnchorPane.setRightAnchor(content, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -93,4 +123,11 @@ public class PrincipalStandardController {
     public void setJwtToken(String token){
         jwtToken = token;
     }
+
+    /**
+     * Mètode getter per gestionar el token JWT retornqt per la base de dades.
+     *
+     * @return token El token JWT.
+     */
+    public String getJwtToken() { return jwtToken; }
 }

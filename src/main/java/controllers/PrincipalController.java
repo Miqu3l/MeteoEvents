@@ -2,10 +2,13 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.LoginClient;
+import utilities.PathsViews;
 import java.io.IOException;
 import java.net.http.HttpClient;
 
@@ -24,6 +27,7 @@ public class PrincipalController {
     @FXML
     private AnchorPane anch_princ_main;
 
+    /** Botó que gestiona el tancament de sessió i el retorn a la pantalla de login. */
     @FXML
     Button btn_princ_close;
 
@@ -67,7 +71,17 @@ public class PrincipalController {
      */
     @FXML
     void onBorrarEsdevenimentButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.EVENT_SEARCH_VIEW);
+    }
+
+    /**
+     * Gestiona l'esdeveniment del botó per esborrar una mesura de prevenció.
+     *
+     * @param event L'esdeveniment del botó.
+     */
+    @FXML
+    void onBorrarMesuraButtonClick(ActionEvent event) {
+        loadPanel(PathsViews.MEASURE_SEARCH_VIEW);
     }
 
     /**
@@ -77,7 +91,7 @@ public class PrincipalController {
      */
     @FXML
     void onBorrarTreballadorButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.USER_SEARCH_VIEW);
     }
 
     /**
@@ -87,7 +101,17 @@ public class PrincipalController {
      */
     @FXML
     void onLlistarEsdevenimentButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.EVENT_LIST_VIEW);
+    }
+
+    /**
+     * Gestiona l'esdeveniment del botó per llistar totes les mesures de prevenció.
+     *
+     * @param event L'esdeveniment del botó.
+     */
+    @FXML
+    void onLlistarMesuresButtonClick(ActionEvent event) {
+        loadPanel(PathsViews.MEASURE_LIST_VIEW);
     }
 
     /**
@@ -97,7 +121,7 @@ public class PrincipalController {
      */
     @FXML
     void onLlistarTreballadorButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.USER_LIST_VIEW);
     }
 
     /**
@@ -107,7 +131,17 @@ public class PrincipalController {
      */
     @FXML
     void onModificarEsdevenimentButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.EVENT_SEARCH_VIEW);
+    }
+
+    /**
+     * Gestiona l'esdeveniment del botó per modificar una mesura de prevenció.
+     *
+     * @param event L'esdeveniment del botó.
+     */
+    @FXML
+    void onModificarMesuraButtonClick(ActionEvent event) {
+        loadPanel(PathsViews.MEASURE_SEARCH_VIEW);
     }
 
     /**
@@ -117,7 +151,7 @@ public class PrincipalController {
      */
     @FXML
     void onModificarTreballadorButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.USER_SEARCH_VIEW);
     }
 
     /**
@@ -127,8 +161,17 @@ public class PrincipalController {
      */
     @FXML
     void onNouEsdevenimentButtonClick(ActionEvent event) {
-        // TODO
-        System.out.println(jwtToken);
+        loadPanel(PathsViews.EVENT_MANAGEMENT_VIEW);
+    }
+
+    /**
+     * Gestiona l'esdeveniment del botó per afegir una nova mesura de prevenció.
+     *
+     * @param event L'esdeveniment del botó.
+     */
+    @FXML
+    void onNovaMesuraButtonClick(ActionEvent event) {
+        loadPanel(PathsViews.MEASURE_MANAGEMENT_VIEW);
     }
 
     /**
@@ -138,7 +181,7 @@ public class PrincipalController {
      */
     @FXML
     void onNouTreballadorButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.USER_MANAGEMENT_VIEW);
     }
 
     /**
@@ -148,7 +191,17 @@ public class PrincipalController {
      */
     @FXML
     void onVeureEsdevenimentButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.EVENT_SEARCH_VIEW);
+    }
+
+    /**
+     * Gestiona l'esdeveniment del botó per visualitzar una mesura de prevenció.
+     *
+     * @param event L'esdeveniment del botó.
+     */
+    @FXML
+    void onVeureMesuraButtonClick(ActionEvent event) {
+        loadPanel(PathsViews.MEASURE_SEARCH_VIEW);
     }
 
     /**
@@ -158,7 +211,33 @@ public class PrincipalController {
      */
     @FXML
     void onVeureTreballadorButtonClick(ActionEvent event) {
-        // TODO
+        loadPanel(PathsViews.USER_SEARCH_VIEW);
+    }
+
+    /**
+     * Carrega un nou panell.
+     *
+     * @param path El camí de la vista a carregar.
+     */
+    private void loadPanel(String path) {
+        try {
+            // Carregar l'archiu FXML y obtindre el node arrel
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
+            Node content = fxmlLoader.load();
+
+            // Netejar el contingut actual i afegir el nou AnchorPane
+            anch_princ_main.getChildren().clear();
+            anch_princ_main.getChildren().add(content);
+
+            // Ajustar el contingut a la mida del contenidor
+            AnchorPane.setTopAnchor(content, 0.0);
+            AnchorPane.setBottomAnchor(content, 0.0);
+            AnchorPane.setLeftAnchor(content, 0.0);
+            AnchorPane.setRightAnchor(content, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -166,7 +245,12 @@ public class PrincipalController {
      *
      * @param token El token JWT.
      */
-    public void setJwtToken(String token){
-        jwtToken = token;
-    }
+    public void setJwtToken(String token){ jwtToken = token; }
+
+    /**
+     * Mètode getter per gestionar el token JWT retornqt per la base de dades.
+     *
+     * @return token El token JWT.
+     */
+    public String getJwtToken() { return jwtToken; }
 }

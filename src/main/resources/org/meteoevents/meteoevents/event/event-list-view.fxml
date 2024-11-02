@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anch_event_list" prefHeight="542.0" prefWidth="600.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.event.EventListController">
+   <children>
+      <Button fx:id="btn_event_list_view" layoutX="436.0" layoutY="506.0" mnemonicParsing="false" onAction="#onViewButtonClick" style="-fx-background-color: BCFCFF;" text="Visualitzar" />
+      <Button fx:id="btn_event_list_delete" layoutX="518.0" layoutY="506.0" mnemonicParsing="false" onAction="#onSaveButtonClick" style="-fx-background-color: BCFCFF;" text="Esborrar" />
+      <Label alignment="CENTER" layoutX="209.0" layoutY="14.0" style="-fx-background-color: FFFFFF;" text="ESDEVENIMENTS">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

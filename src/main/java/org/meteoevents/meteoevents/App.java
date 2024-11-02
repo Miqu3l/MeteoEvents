@@ -38,7 +38,7 @@ public class App extends Application {
      * Mètode main. Punt d'entrada de l'aplicació. Crida al mètode launch per iniciar l'aplicació
      * JavaFX.
      *
-     * @param args Arguments de línia de comandes passats a l'aplicació.
+     * @param args Arguments de linia de comandes passats a l'aplicació.
      */
     public static void main(String[] args) {
         launch();
