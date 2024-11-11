@@ -2,10 +2,19 @@ package controllers.user;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
+import model.TokenSingleton;
+import model.User;
+import model.crud.CrudUser;
+import utilities.PathsViews;
+
+import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * Controlador per a la funcionalitat de cerca d'usuaris.
@@ -30,7 +39,7 @@ public class UserSearchController {
 
     /** Etiqueta per mostrar missatges d'error o d'avís si no es troba cap resultat. */
     @FXML
-    private Label lbl_response_empty;
+    private Label lbl_response;
 
     /** Camp de text on l'usuari introdueix el valor que vol buscar. */
     @FXML
@@ -39,6 +48,19 @@ public class UserSearchController {
     /** Panell titulat que conté les opcions de selecció de l'atribut de cerca. */
     @FXML
     private TitledPane tit_attribute_search;
+
+    private String jwtToken;
+    private CrudUser crudUser;
+    private User user;
+
+    /**
+     * Mètode que s'executa en crear el controlador.
+     */
+    @FXML
+    protected void initialize() throws Exception {
+        jwtToken = TokenSingleton.getInstance().getJwtToken();
+        crudUser = new CrudUser();
+    }
 
     /**
      * Mètode invocat quan es fa clic al botó de cerca per ID.
@@ -81,33 +103,50 @@ public class UserSearchController {
      * @param event l'esdeveniment de clic associat al botó de cerca.
      */
     @FXML
-    void onSearchButtonClick(ActionEvent event) {
-        lbl_response_empty.setText("");
+    void onSearchButtonClick(ActionEvent event) throws Exception {
+        user = null;
+        lbl_response.setText("");
         attribute = lbl_user_search.getText();
         search = txt_user_search.getText();
 
         if (attribute.isEmpty() || search.isEmpty()) {
-            lbl_response_empty.setText("Has d'introduïr l'atribut i el valor a buscar");
+            lbl_response.setText("Has d'introduïr l'atribut i el valor a buscar");
         } else {
             // Lògica per a la cerca segons l'atribut i el valor especificats.
+            user = crudUser.getUserById(search);
+            if(user!=null){
+                loadPanel(PathsViews.USER_MANAGEMENT_VIEW);
+            }else{
+                lbl_response.setText("Usuari no trobat");
+            }
         }
     }
 
     /**
-     * Obté el panell de cerca d'usuaris.
+     * Carrega un nou panell.
      *
-     * @return l'AnchorPane de cerca d'usuaris.
+     * @param path El camí de la vista a carregar.
      */
-    public AnchorPane getAnch_user_search() {
-        return anch_user_search;
-    }
+    private void loadPanel(String path) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
+            Node content = fxmlLoader.load();
 
-    /**
-     * Estableix el panell de cerca d'usuaris.
-     *
-     * @param anch_user_search l'AnchorPane a assignar com a panell de cerca d'usuaris.
-     */
-    public void setAnch_user_search(AnchorPane anch_user_search) {
-        this.anch_user_search = anch_user_search;
+            UserManagementController controller = fxmlLoader.getController();
+            controller.setUser(user);
+
+            // Netejar el contingut actual i afegir el nou AnchorPane
+            anch_user_search.getChildren().clear();
+            anch_user_search.getChildren().add(content);
+
+            // Ajustar el contingut a la mida del contenidor
+            AnchorPane.setTopAnchor(content, 0.0);
+            AnchorPane.setBottomAnchor(content, 0.0);
+            AnchorPane.setLeftAnchor(content, 0.0);
+            AnchorPane.setRightAnchor(content, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

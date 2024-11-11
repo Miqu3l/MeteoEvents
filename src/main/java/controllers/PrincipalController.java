@@ -7,7 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.LoginClient;
+import model.TokenSingleton;
+import model.login.LoginClient;
 import utilities.PathsViews;
 import java.io.IOException;
 import java.net.http.HttpClient;
@@ -44,6 +45,7 @@ public class PrincipalController {
     protected void initialize() {
         httpClient = HttpClient.newHttpClient();
         loginClient = new LoginClient();
+        jwtToken = TokenSingleton.getInstance().getJwtToken();
     }
 
     /**
@@ -239,18 +241,4 @@ public class PrincipalController {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Mètode setter per gestionar el token JWT retornqt per la base de dades.
-     *
-     * @param token El token JWT.
-     */
-    public void setJwtToken(String token){ jwtToken = token; }
-
-    /**
-     * Mètode getter per gestionar el token JWT retornqt per la base de dades.
-     *
-     * @return token El token JWT.
-     */
-    public String getJwtToken() { return jwtToken; }
 }

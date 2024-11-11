@@ -3,6 +3,7 @@ package controllers.event;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -22,6 +23,10 @@ public class EventListController {
     /** Botó per visualitzar els detalls dels esdeveniments de la llista. */
     @FXML
     private Button btn_user_list_view;
+
+    /** Panell on es mostrarà la llista d'esdeveniments. */
+    @FXML
+    private ListView<?> list_events;
 
     /**
      * Mètode invocat quan es fa clic al botó de "Guardar".

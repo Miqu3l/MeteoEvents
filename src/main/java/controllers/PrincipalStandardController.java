@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.LoginClient;
+import model.login.LoginClient;
 import utilities.PathsViews;
 
 import java.io.IOException;

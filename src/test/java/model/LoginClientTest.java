@@ -1,5 +1,6 @@
 package model;
 
+import model.login.LoginClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;

@@ -1,10 +1,11 @@
-package model;
+package model.login;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.TokenSingleton;
 import org.meteoevents.meteoevents.App;
 import utilities.PathsViews;
 import utilities.URLRequests;
@@ -98,6 +99,8 @@ public class LoginClient {
                 JsonNode jsonNode = objectMapper.readTree(response.body());
                 jwtToken = jsonNode.get("token").asText();
                 funcionalID = jsonNode.get("funcionalId").asText();
+                //Assigna el token a la classe TokenSingleton per poder fer-lo servir a tota l'aplicació.
+                TokenSingleton.getInstance().setJwtToken(jwtToken);
                 return EXPECTED_LOGIN_MESSAGE;
             case 401:
                 return INCORRECT_CREDENTIAL_MESSAGE;

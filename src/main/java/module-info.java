@@ -18,4 +18,5 @@ module org.meteoevents.meteoevents {
     opens controllers.event to javafx.fxml;
     exports controllers.measure;
     opens controllers.measure to javafx.fxml;
+    exports model to com.fasterxml.jackson.databind;
 }

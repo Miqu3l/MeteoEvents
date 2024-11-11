@@ -2,6 +2,7 @@ package controllers.measure;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -14,6 +15,10 @@ public class MeasureListController {
     /** Panell de tipus AnchorPane que conté la llista de mesures. */
     @FXML
     private AnchorPane anch_user_list;
+
+    /** Panell on es mostrarà la llista de mesures. */
+    @FXML
+    private ListView<?> list_measures;
 
     /**
      * Mètode invocat quan es fa clic al botó de "Guardar".

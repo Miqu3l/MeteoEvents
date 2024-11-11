@@ -1,9 +1,9 @@
 package controllers;
 
-import model.LoginClient;
+import model.login.LoginClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utilities.URLRequests;
+
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;

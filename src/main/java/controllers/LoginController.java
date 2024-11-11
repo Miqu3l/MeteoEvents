@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import model.LoginClient;
+import model.login.LoginClient;
 import org.meteoevents.meteoevents.App;
 import javafx.stage.Stage;
 import utilities.PathsViews;
@@ -89,14 +89,6 @@ public class LoginController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(path));
             Parent root = fxmlLoader.load();
-
-            if (path.equals(PathsViews.PRINCIPAL_VIEW)) {
-                PrincipalController principalController = fxmlLoader.getController();
-                principalController.setJwtToken(login.getJwtToken());
-            } else if (path.equals(PathsViews.PRINCIPAL_STANDARD_VIEW)) {
-                PrincipalStandardController principalStandardController = fxmlLoader.getController();
-                principalStandardController.setJwtToken(login.getJwtToken());
-            }
 
             Scene scene = new Scene(root, 900, 600);
             Stage stage = new Stage();

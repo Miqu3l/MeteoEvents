@@ -55,7 +55,7 @@
                         <Insets left="15.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefWidth="150.0" text="Direcció">
+                  <Label prefWidth="150.0" text="Descripció">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -141,7 +141,7 @@
                         <Insets left="5.0" right="15.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="txt_user_management_address" opacity="0.5">
+                  <TextField fx:id="txt_user_management_description" opacity="0.5">
                      <VBox.margin>
                         <Insets left="5.0" right="15.0" top="10.0" />
                      </VBox.margin>
@@ -180,10 +180,16 @@
       </HBox>
       <Button fx:id="btn_user_management_delete" layoutX="448.0" layoutY="506.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" style="-fx-background-color: BCFCFF;" text="Esborrar" />
       <Button fx:id="btn_user_management_save" layoutX="518.0" layoutY="506.0" mnemonicParsing="false" onAction="#onSaveButtonClick" style="-fx-background-color: BCFCFF;" text="Guardar" />
+      <Label fx:id="lbl_user_response" layoutX="27.0" layoutY="481.0" prefHeight="26.0" prefWidth="335.0" style="-fx-background-color: FFFFFF;" textFill="RED">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
       <Label alignment="CENTER" layoutX="252.0" layoutY="14.0" style="-fx-background-color: FFFFFF;" text="USUARIS">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <Button layoutX="370.0" layoutY="506.0" mnemonicParsing="false" onAction="#onModifyButtonClick" style="-fx-background-color: BCFCFF;" text="Modificar" />
    </children>
 </AnchorPane>

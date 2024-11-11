@@ -4,7 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import model.User;
+import model.crud.CrudUser;
+import java.util.Date;
 
 /**
  * Controlador per a la gestió dels esdeveniments de la vista de gestió dels treballadors
@@ -16,9 +18,10 @@ import javafx.scene.layout.AnchorPane;
  */
 public class UserManagementController {
 
-    /** Contenidor de la vista. */
-    @FXML
-    private AnchorPane anch_user_management;
+    /**
+     * Constant amb el missatge d'error quan es produeix un problema durant la petició.
+     */
+    private static final String ERROR = "S'ha produït un error.";
 
     /**
      * Etiqueta que mostra l'ID de l'usuari gestionat.
@@ -26,11 +29,14 @@ public class UserManagementController {
     @FXML
     private Label lbl_user_management_id;
 
+    @FXML
+    private Label lbl_user_response;
+
     /**
      * Camp de text per introduir o visualitzar l'adreça de l'usuari.
      */
     @FXML
-    private TextField txt_user_management_address;
+    private TextField txt_user_management_description;
 
     /**
      * Camp de text per introduir o visualitzar la data de naixement de l'usuari.
@@ -86,41 +92,135 @@ public class UserManagementController {
     @FXML
     private TextField txt_user_management_username;
 
+    private User user;
+    private CrudUser crudUser;
+
+    /**
+     * Mètode que s'executa en crear el controlador.
+     */
+    @FXML
+    protected void initialize() throws Exception {
+        crudUser = new CrudUser();
+        user = new User();
+    }
+
     /**
      * Gestiona l'esdeveniment del botó per esborrar un treballador.
      *
      * @param event L'esdeveniment del botó.
      */
     @FXML
-    void onDeleteButtonClick(ActionEvent event) {
+    void onDeleteButtonClick(ActionEvent event) throws Exception {
+        lbl_user_response.setText("");
 
+        if(user != null){
+            String response = crudUser.deleteUser(user.getID());
+            lbl_user_response.setText(response);
+            cleanUser();
+        }else{
+            lbl_user_response.setText(ERROR);
+        }
     }
 
     /**
-     * Gestiona l'esdeveniment del botó per modificar o crear un treballador.
+     * Gestiona l'esdeveniment del botó per crear un treballador.
      *
      * @param event L'esdeveniment del botó.
      */
     @FXML
-    void onSaveButtonClick(ActionEvent event) {
-
+    void onSaveButtonClick(ActionEvent event) throws Exception {
+        lbl_user_response.setText("");
+        saveUser();
+        String response = crudUser.createUser(user);
+        lbl_user_response.setText(response);
     }
 
     /**
-     * Mètode getter per gestionar el contenidor de la vista.
+     * Gestiona l'esdeveniment del botó per modificar un treballador.
      *
-     * @return anch_user_management El contenidor de la vista.
+     * @param event L'esdeveniment del botó.
      */
-    public AnchorPane getAnch_user_management() {
-        return anch_user_management;
+    @FXML
+    void onModifyButtonClick(ActionEvent event) throws Exception {
+        lbl_user_response.setText("");
+        saveUser();
+        if(user != null){
+            String response = crudUser.updateUser(user);
+            lbl_user_response.setText(response);
+        }else{
+            lbl_user_response.setText(ERROR);
+        }
     }
 
     /**
-     * Mètode setter per gestionar el contenidor de la vista.
+     * Estableix l'usuari actual i inicialitza els camps de la interfície d'usuari
+     * amb les dades de l'usuari proporcionat.
      *
-     * @param anch_user_management El token JWT.
+     * @param user L'usuari que es vol gestionar.
      */
-    public void setAnch_user_management(AnchorPane anch_user_management) {
-        this.anch_user_management = anch_user_management;
+    public void setUser(User user) {
+        this.user = user;
+        initializeUser(user);
+    }
+
+    /**
+     * Inicialitza els camps de la interfície d'usuari amb la informació de l'usuari.
+     *
+     * @param user L'usuari que es vol visualitzar.
+     */
+    private void initializeUser(User user) {
+        lbl_user_management_id.setText(user.getID());
+        txt_user_management_username.setText(user.getNom_usuari());
+        txt_user_management_password.setText(user.getContrasenya());
+        txt_user_management_name.setText(user.getNom_c());
+        txt_user_management_email.setText(user.getEmail());
+        txt_user_management_phone.setText(Integer.toString(user.getTelefon()));
+        txt_user_management_city.setText(user.getPoblacio());
+        if (user.getData_naixement() != null) {
+            txt_user_management_birth.setText(user.getData_naixement().toString());
+        } else {
+            txt_user_management_birth.setText("00/00/0000");
+        }
+        txt_user_management_sex.setText(user.getSexe());
+        txt_user_management_type.setText(user.getFuncional_id());
+        txt_user_management_description.setText(user.getDescripcio());
+    }
+
+    /**
+     * Neteja tots els camps de la interfície d'usuari.
+     */
+    private void cleanUser() {
+        lbl_user_management_id.setText("");
+        txt_user_management_username.setText("");
+        txt_user_management_password.setText("");
+        txt_user_management_name.setText("");
+        txt_user_management_email.setText("");
+        txt_user_management_phone.setText("");
+        txt_user_management_city.setText("");
+        txt_user_management_birth.setText("");
+        txt_user_management_sex.setText("");
+        txt_user_management_type.setText("");
+        txt_user_management_description.setText("");
+    }
+
+    /**
+     * Guarda tots els camps a l'objecte usuari.
+     */
+    public void saveUser(){
+        user.setNom_c(txt_user_management_name.getText());
+        user.setFuncional_id(txt_user_management_type.getText());
+        user.setNom_usuari(txt_user_management_username.getText());
+        user.setContrasenya(txt_user_management_password.getText());
+        user.setData_naixement(new Date()); // Adaptar esto según el valor real de fecha
+        user.setUltima_connexio(null);
+        user.setSexe(txt_user_management_sex.getText());
+        user.setPoblacio(txt_user_management_city.getText());
+        user.setEmail(txt_user_management_email.getText());
+        if(txt_user_management_phone.getText().isEmpty()){
+            user.setTelefon(0);
+        }else{
+            user.setTelefon(Integer.parseInt(txt_user_management_phone.getText()));
+        }
+        user.setDescripcio(txt_user_management_description.getText());
     }
 }
