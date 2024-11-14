@@ -211,7 +211,7 @@ public class UserManagementController {
         user.setFuncional_id(txt_user_management_type.getText());
         user.setNom_usuari(txt_user_management_username.getText());
         user.setContrasenya(txt_user_management_password.getText());
-        user.setData_naixement(new Date()); // Adaptar esto según el valor real de fecha
+        user.setData_naixement(new Date());
         user.setUltima_connexio(null);
         user.setSexe(txt_user_management_sex.getText());
         user.setPoblacio(txt_user_management_city.getText());

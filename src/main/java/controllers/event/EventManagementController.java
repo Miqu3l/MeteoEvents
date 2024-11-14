@@ -4,75 +4,95 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import model.Event;
+import model.crud.CrudEvent;
 
 /**
- * Controlador per a la gestió dels esdeveniments de la vista de gestió dels esdeveniments
- * per als usuaris administradors. En aquesta classe es gestionen les interaccions amb els
- * botons per a esborrar, crear o modificar i visualitzar dels esdeveniments que gestiona l'empresa.
+ * Controlador per a la gestió dels esdeveniments de la vista de gestió per als administradors.
+ * Gestiona les interaccions amb els botons per a esborrar, crear o modificar i visualitzar
+ * esdeveniments en l'aplicació.
  *
- * @author Miguel Rodríguez Garriga
  * @version 1.0
  */
 public class EventManagementController {
 
-    /** Contenidor de la vista. */
-    @FXML
-    private AnchorPane anch_event_management;
+    /**
+     * Missatge d'error estàndard en cas de fallada durant la petició.
+     */
+    private static final String ERROR = "S'ha produït un error.";
 
     /**
-     * Etiqueta que mostra l'ID de l'esdeveniment gestionat.
+     * Etiqueta per mostrar l'ID de gestió de l'esdeveniment.
      */
     @FXML
     private Label lbl_event_management_id;
 
     /**
-     * Camp de text per introduir o visualitzar l'adreça associada a l'esdeveniment o usuari.
+     * Etiqueta per mostrar la resposta relacionada amb la gestió de l'esdeveniment.
+     */
+    @FXML
+    private Label lbl_event_response;
+
+    /**
+     * Camp de text per introduir o modificar l'adreça de l'esdeveniment.
      */
     @FXML
     private TextField txt_event_management_address;
 
     /**
-     * Camp de text per introduir o visualitzar la data de naixement associada a l'esdeveniment o usuari.
+     * Camp de text per introduir o modificar la capacitat màxima de l'esdeveniment.
      */
     @FXML
-    private TextField txt_event_management_birth;
+    private TextField txt_event_management_capacity;
 
     /**
-     * Camp de text per introduir o visualitzar la ciutat associada a l'esdeveniment o usuari.
+     * Camp de text per introduir o modificar la ciutat on es durà a terme l'esdeveniment.
      */
     @FXML
     private TextField txt_event_management_city;
 
     /**
-     * Camp de text per introduir o visualitzar l'email associat a l'esdeveniment o usuari.
+     * Camp de text per introduir o modificar la descripció de l'esdeveniment.
      */
     @FXML
-    private TextField txt_event_management_email;
+    private TextField txt_event_management_description;
 
     /**
-     * Camp de text per introduir o visualitzar el nom associat a l'esdeveniment o usuari.
+     * Camp de text per introduir o modificar el nom de l'esdeveniment.
      */
     @FXML
     private TextField txt_event_management_name;
 
     /**
-     * Camp de text per introduir o visualitzar la contrasenya de l'usuari associat a l'esdeveniment.
+     * Camp de text per introduir o modificar el nom de l'organitzador de l'esdeveniment.
      */
     @FXML
-    private TextField txt_event_management_password;
+    private TextField txt_event_management_organizer;
 
     /**
-     * Camp de text per introduir o visualitzar el telèfon associat a l'esdeveniment o usuari.
+     * Camp de text per introduir o modificar l'hora de l'esdeveniment.
      */
     @FXML
-    private TextField txt_event_management_phone;
+    private TextField txt_event_management_time;
 
     /**
-     * Camp de text per introduir o visualitzar el nom d'usuari associat a l'esdeveniment o perfil.
+     * Camp de text per introduir o modificar el codi postal de la ubicació de l'esdeveniment.
      */
     @FXML
-    private TextField txt_event_management_username;
+    private TextField txt_event_management_zipcode;
+
+
+    private Event event;
+    private CrudEvent crudEvent;
+
+    /**
+     * Mètode que s'executa en crear el controlador.
+     */
+    @FXML
+    protected void initialize() throws Exception {
+        crudEvent = new CrudEvent();
+        event = new Event();
+    }
 
     /**
      * Gestiona l'esdeveniment del botó per esborrar un esdeveniment.
@@ -80,35 +100,106 @@ public class EventManagementController {
      * @param event L'esdeveniment del botó.
      */
     @FXML
-    void onDeleteButtonClick(ActionEvent event) {
+    void onDeleteButtonClick(ActionEvent event) throws Exception {
+        lbl_event_response.setText("");
 
+        if (this.event != null) {
+            String response = crudEvent.deleteEvent(this.event.getId());
+            lbl_event_response.setText(response);
+            cleanEvent();
+        } else {
+            lbl_event_response.setText(ERROR);
+        }
     }
 
     /**
-     * Gestiona l'esdeveniment del botó per modificar o crear un esdeveniment.
+     * Gestiona l'esdeveniment del botó per crear un esdeveniment.
      *
      * @param event L'esdeveniment del botó.
      */
     @FXML
-    void onSaveButtonClick(ActionEvent event) {
-
+    void onSaveButtonClick(ActionEvent event) throws Exception {
+        lbl_event_response.setText("");
+        saveEvent();
+        String response = crudEvent.createEvent(this.event);
+        lbl_event_response.setText(response);
     }
 
     /**
-     * Mètode getter per gestionar el contenidor de la vista.
+     * Gestiona l'esdeveniment del botó per modificar un esdeveniment.
      *
-     * @return anch_event_management El contenidor de la vista.
+     * @param event L'esdeveniment del botó.
      */
-    public AnchorPane getAnch_event_management() {
-        return anch_event_management;
+    @FXML
+    void onModifyButtonClick(ActionEvent event) throws Exception {
+        lbl_event_response.setText("");
+        saveEvent();
+        if (this.event != null) {
+            String response = crudEvent.updateEvent(this.event);
+            lbl_event_response.setText(response);
+        } else {
+            lbl_event_response.setText(ERROR);
+        }
     }
 
     /**
-     * Mètode setter per gestionar el contenidor de la vista.
+     * Estableix l'esdeveniment actual i inicialitza els camps de la interfície d'usuari
+     * amb les dades de l'esdeveniment proporcionat.
      *
-     * @param anch_event_management El token JWT.
+     * @param event L'esdeveniment que es vol gestionar.
      */
-    public void setAnch_event_management(AnchorPane anch_event_management) {
-        this.anch_event_management = anch_event_management;
+    public void setEvent(Event event) {
+        this.event = event;
+        initializeEvent(event);
+    }
+
+    /**
+     * Inicialitza els camps de la interfície d'usuari amb la informació de l'esdeveniment.
+     *
+     * @param event L'esdeveniment que es vol visualitzar.
+     */
+    private void initializeEvent(Event event) {
+        lbl_event_management_id.setText(event.getId());
+        txt_event_management_name.setText(event.getNom());
+        txt_event_management_description.setText(event.getDescripcio());
+        txt_event_management_organizer.setText(event.getOrganitzador());
+        txt_event_management_address.setText(event.getDireccio());
+        txt_event_management_zipcode.setText(event.getCodiPostal());
+        txt_event_management_city.setText(event.getPoblacio());
+        txt_event_management_capacity.setText(String.valueOf(event.getAforament()));
+        txt_event_management_time.setText(event.getHorari());
+    }
+
+    /**
+     * Neteja tots els camps de la interfície d'usuari.
+     */
+    private void cleanEvent() {
+        lbl_event_management_id.setText("");
+        txt_event_management_name.setText("");
+        txt_event_management_description.setText("");
+        txt_event_management_organizer.setText("");
+        txt_event_management_address.setText("");
+        txt_event_management_zipcode.setText("");
+        txt_event_management_city.setText("");
+        txt_event_management_capacity.setText("");
+        txt_event_management_time.setText("");
+    }
+
+    /**
+     * Guarda tots els camps a l'objecte esdeveniment.
+     */
+    public void saveEvent() {
+        event.setNom(txt_event_management_name.getText());
+        event.setDescripcio(txt_event_management_description.getText());
+        event.setOrganitzador(txt_event_management_organizer.getText());
+        event.setDireccio(txt_event_management_address.getText());
+        event.setCodiPostal(txt_event_management_zipcode.getText());
+        event.setPoblacio(txt_event_management_city.getText());
+        if(txt_event_management_capacity.getText().isEmpty()){
+            event.setAforament(0);
+        }else{
+            event.setAforament(Integer.parseInt(txt_event_management_capacity.getText()));
+        }
+        event.setHorari(txt_event_management_time.getText());
     }
 }

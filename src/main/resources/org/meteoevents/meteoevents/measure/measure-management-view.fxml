@@ -23,14 +23,6 @@
                         <Insets left="15.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefWidth="150.0" text="Nom mesura">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="15.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
                   <Label prefWidth="150.0" text="Condició">
                      <font>
                         <Font size="16.0" />
@@ -63,14 +55,6 @@
                         <Insets left="15.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefWidth="150.0" text="Descripció">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="15.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
                </children>
                <opaqueInsets>
                   <Insets />
@@ -89,32 +73,22 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txt_measure_management_username" opacity="0.5">
+                  <TextField fx:id="txt_measure_management_condicio" opacity="0.5">
                      <VBox.margin>
                         <Insets left="5.0" right="15.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="txt_measure_management_password" opacity="0.5">
+                  <TextField fx:id="txt_measure_management_valor" opacity="0.5">
                      <VBox.margin>
                         <Insets left="5.0" right="15.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="txt_measure_management_name" opacity="0.5">
+                  <TextField fx:id="txt_measure_management_valor_uml" opacity="0.5">
                      <VBox.margin>
                         <Insets left="5.0" right="15.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="txt_measure_management_email" opacity="0.5">
-                     <VBox.margin>
-                        <Insets left="5.0" right="15.0" top="10.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="txt_measure_management_address" opacity="0.5">
-                     <VBox.margin>
-                        <Insets left="5.0" right="15.0" top="10.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="txt_measure_management_phone" opacity="0.5">
+                  <TextField fx:id="txt_measure_management_accio" opacity="0.5">
                      <VBox.margin>
                         <Insets left="5.0" right="15.0" top="10.0" />
                      </VBox.margin>
@@ -127,11 +101,17 @@
          </opaqueInsets>
       </HBox>
       <Button fx:id="btn_user_management_delete" layoutX="448.0" layoutY="506.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" style="-fx-background-color: BCFCFF;" text="Esborrar" />
-      <Button fx:id="btn_user_management_save" layoutX="518.0" layoutY="506.0" mnemonicParsing="false" onAction="#onSaveButtonClick" style="-fx-background-color: BCFCFF;" text="Guardar" />
+      <Button fx:id="btn_user_management_save" layoutX="518.0" layoutY="506.0" mnemonicParsing="false" onAction="#onSaveButtonClick" style="-fx-background-color: BCFCFF;" text="Nou" />
       <Label alignment="CENTER" layoutX="165.0" layoutY="14.0" style="-fx-background-color: FFFFFF;" text="MESURES DE PREVENCIÓ">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <Label fx:id="lbl_measure_response" layoutX="28.0" layoutY="481.0" prefHeight="26.0" prefWidth="335.0" style="-fx-background-color: FFFFFF;" textFill="RED">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="373.0" layoutY="506.0" mnemonicParsing="false" onAction="#onModifyButtonClick" style="-fx-background-color: BCFCFF;" text="Modificar" />
    </children>
 </AnchorPane>

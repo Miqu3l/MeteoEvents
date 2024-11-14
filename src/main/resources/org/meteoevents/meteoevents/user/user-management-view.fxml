@@ -179,7 +179,7 @@
          </opaqueInsets>
       </HBox>
       <Button fx:id="btn_user_management_delete" layoutX="448.0" layoutY="506.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" style="-fx-background-color: BCFCFF;" text="Esborrar" />
-      <Button fx:id="btn_user_management_save" layoutX="518.0" layoutY="506.0" mnemonicParsing="false" onAction="#onSaveButtonClick" style="-fx-background-color: BCFCFF;" text="Guardar" />
+      <Button fx:id="btn_user_management_save" layoutX="518.0" layoutY="506.0" mnemonicParsing="false" onAction="#onSaveButtonClick" style="-fx-background-color: BCFCFF;" text="Nou" />
       <Label fx:id="lbl_user_response" layoutX="27.0" layoutY="481.0" prefHeight="26.0" prefWidth="335.0" style="-fx-background-color: FFFFFF;" textFill="RED">
          <font>
             <Font size="16.0" />

@@ -9,12 +9,17 @@
 <AnchorPane fx:id="anch_measure_list" prefHeight="542.0" prefWidth="600.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.measure.MeasureListController">
    <children>
       <Button fx:id="btn_measure_management_view" layoutX="436.0" layoutY="506.0" mnemonicParsing="false" onAction="#onViewButtonClick" style="-fx-background-color: BCFCFF;" text="Visualitzar" />
-      <Button fx:id="btn_measure_list_delete" layoutX="518.0" layoutY="506.0" mnemonicParsing="false" onAction="#onSaveButtonClick" style="-fx-background-color: BCFCFF;" text="Esborrar" />
+      <Button fx:id="btn_measure_list_delete" layoutX="518.0" layoutY="506.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" style="-fx-background-color: BCFCFF;" text="Esborrar" />
       <Label alignment="CENTER" layoutX="252.0" layoutY="14.0" style="-fx-background-color: FFFFFF;" text="MEASURES">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       <ListView fx:id="list_measures" layoutX="50.0" layoutY="71.0" prefHeight="400.0" prefWidth="500.0" />
+      <Label fx:id="lbl_response_list_measure" layoutX="50.0" layoutY="479.0" prefHeight="26.0" prefWidth="365.0" textFill="RED">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

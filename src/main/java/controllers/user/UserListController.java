@@ -11,7 +11,6 @@ import model.TokenSingleton;
 import model.User;
 import model.crud.CrudUser;
 import utilities.PathsViews;
-
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.util.List;

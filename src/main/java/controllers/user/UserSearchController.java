@@ -6,15 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import model.TokenSingleton;
 import model.User;
 import model.crud.CrudUser;
 import utilities.PathsViews;
-
 import java.io.IOException;
-import java.nio.file.Paths;
 
 /**
  * Controlador per a la funcionalitat de cerca d'usuaris.
@@ -44,10 +41,6 @@ public class UserSearchController {
     /** Camp de text on l'usuari introdueix el valor que vol buscar. */
     @FXML
     private TextField txt_user_search;
-
-    /** Panell titulat que conté les opcions de selecció de l'atribut de cerca. */
-    @FXML
-    private TitledPane tit_attribute_search;
 
     private String jwtToken;
     private CrudUser crudUser;
@@ -112,7 +105,6 @@ public class UserSearchController {
         if (attribute.isEmpty() || search.isEmpty()) {
             lbl_response.setText("Has d'introduïr l'atribut i el valor a buscar");
         } else {
-            // Lògica per a la cerca segons l'atribut i el valor especificats.
             user = crudUser.getUserById(search);
             if(user!=null){
                 loadPanel(PathsViews.USER_MANAGEMENT_VIEW);
@@ -135,11 +127,9 @@ public class UserSearchController {
             UserManagementController controller = fxmlLoader.getController();
             controller.setUser(user);
 
-            // Netejar el contingut actual i afegir el nou AnchorPane
             anch_user_search.getChildren().clear();
             anch_user_search.getChildren().add(content);
 
-            // Ajustar el contingut a la mida del contenidor
             AnchorPane.setTopAnchor(content, 0.0);
             AnchorPane.setBottomAnchor(content, 0.0);
             AnchorPane.setLeftAnchor(content, 0.0);

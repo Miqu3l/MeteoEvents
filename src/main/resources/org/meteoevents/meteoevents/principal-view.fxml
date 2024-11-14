@@ -161,9 +161,9 @@
             </HBox>
             <AnchorPane fx:id="anch_princ_main" prefHeight="551.0" prefWidth="600.0" style="-fx-background-color: FFFFFF;">
                <children>
-                  <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="208.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="150.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../Pictures/logo-2078018_1280.png" />
+                        <Image url="@../../../Pictures/meteoevents-high-resolution-logo-transparent.png" />
                      </image>
                   </ImageView>
                </children></AnchorPane>

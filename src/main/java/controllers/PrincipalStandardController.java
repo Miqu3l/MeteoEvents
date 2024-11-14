@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.user.UserManagementController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.User;
+import model.crud.CrudUser;
 import model.login.LoginClient;
 import utilities.PathsViews;
 
@@ -51,7 +54,7 @@ public class PrincipalStandardController {
 
     /**
      * Gestiona l'esdeveniment del botó per tancar la finestra i sortir de la sessió.
-     * Fa la petició al backend de login,  esborra el token JWT, tanca la finestra actual
+     * Fa la petició al backend de login, esborra el token JWT, tanca la finestra actual
      * i obre la vista de login.
      *
      * @param event L'esdeveniment del botó.
@@ -90,21 +93,34 @@ public class PrincipalStandardController {
     }
 
     /**
+     * Gestiona l'esdeveniment del botó per veure un usuari i modificar les seves dades.
+     *
+     * @param event L'esdeveniment del botó.
+     */
+    public void onVeureUsuariButtonClick(ActionEvent event) {
+        loadPanel(PathsViews.USER_MANAGEMENT_VIEW);
+
+    }
+
+    /**
      * Carrega un nou panell.
      *
      * @param path El camí de la vista a carregar.
      */
     private void loadPanel(String path) {
+        //CrudUser crudUser = new CrudUser();
+        //User user = crudUser.getUserById("1");
+
         try {
-            // Carregar l'archiu FXML y obtindre el node arrel
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
             Node content = fxmlLoader.load();
 
-            // Netejar el contingut actual i afegir el nou AnchorPane
+            //UserManagementController controller = fxmlLoader.getController();
+            //controller.setUser(user);
+
             anch_princStandard_main.getChildren().clear();
             anch_princStandard_main.getChildren().add(content);
 
-            // Ajustar el contingut a la mida del contenidor
             AnchorPane.setTopAnchor(content, 0.0);
             AnchorPane.setBottomAnchor(content, 0.0);
             AnchorPane.setLeftAnchor(content, 0.0);

@@ -223,15 +223,12 @@ public class PrincipalController {
      */
     private void loadPanel(String path) {
         try {
-            // Carregar l'archiu FXML y obtindre el node arrel
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
             Node content = fxmlLoader.load();
 
-            // Netejar el contingut actual i afegir el nou AnchorPane
             anch_princ_main.getChildren().clear();
             anch_princ_main.getChildren().add(content);
 
-            // Ajustar el contingut a la mida del contenidor
             AnchorPane.setTopAnchor(content, 0.0);
             AnchorPane.setBottomAnchor(content, 0.0);
             AnchorPane.setLeftAnchor(content, 0.0);
