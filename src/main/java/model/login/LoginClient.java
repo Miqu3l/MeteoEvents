@@ -44,6 +44,7 @@ public class LoginClient {
     private final HttpClient httpClient;
     private String jwtToken;
     private String funcionalID;
+    private String id;
     private HttpResponse<String> response;
 
     /**
@@ -99,8 +100,10 @@ public class LoginClient {
                 JsonNode jsonNode = objectMapper.readTree(response.body());
                 jwtToken = jsonNode.get("token").asText();
                 funcionalID = jsonNode.get("funcionalId").asText();
-                //Assigna el token a la classe TokenSingleton per poder fer-lo servir a tota l'aplicació.
+                id = jsonNode.get("usuariId").asText();
+                //Assigna el token i l'id a la classe TokenSingleton per poder fer-lo servir a tota l'aplicació.
                 TokenSingleton.getInstance().setJwtToken(jwtToken);
+                TokenSingleton.getInstance().setId(id);
                 return EXPECTED_LOGIN_MESSAGE;
             case 401:
                 return INCORRECT_CREDENTIAL_MESSAGE;

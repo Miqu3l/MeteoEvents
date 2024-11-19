@@ -48,8 +48,8 @@ class LoginClientTest {
         mockHttpClient = mock(HttpClient.class);
         loginClient = new LoginClient(mockHttpClient);
         mockResponse = mock(HttpResponse.class);
-        responseBodyAdmin = "{\"token\": \"testToken\", \"funcionalId\": \"ADM\"}";
-        responseBodyStandard = "{\"token\": \"testToken\", \"funcionalId\": \"USR\"}";
+        responseBodyAdmin = "{\"token\": \"testToken\", \"funcionalId\": \"ADM\", \"usuariId\": \"testUserId\"}";
+        responseBodyStandard = "{\"token\": \"testToken\", \"funcionalId\": \"USR\", \"usuariId\": \"testUserId\"}";
     }
 
     /**

@@ -11,6 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.PrimitiveIterator;
 
 /**
  * Classe CrudUser que proporciona mètodes per realitzar operacions CRUD
@@ -29,11 +30,15 @@ public class CrudUser {
     private static final String TOKEN_ERROR = "Token no proporcionat";
     private static final String NEW_USER = "Usuari creat correctament";
     private static final String CORRECT = "Operació correcta";
+    private static final String USER_EXIST = "Aquest usuari ja existeix a la base de dades.";
+    private static final String USER_MODIFY = "Usuari actualitzat correctament";
+    private static final String USER_DELETE = "Usuari esborrat correctament";
+    private static final String ID_ERROR = "Identificador incorrecte";
 
     private HttpClient httpClient;
     private HttpResponse<String> response;
     private HttpRequest request;
-    String jwtToken;
+    private String jwtToken;
 
     /**
      * Constructor per defecte que inicialitza l'HttpClient i recupera el token JWT
@@ -52,6 +57,10 @@ public class CrudUser {
      * @throws Exception Si es produeix un error en l'enviament de la petició HTTP.
      */
     public String createUser(User user) throws Exception {
+        if(checkUser(user)){
+            return USER_EXIST;
+        }
+
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonRequest = objectMapper.writeValueAsString(user);
 
@@ -65,7 +74,7 @@ public class CrudUser {
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if(response.statusCode()==200){
-            return "Usuari creat correctament";
+            return NEW_USER;
         }else{
             return returnMessage(response.statusCode());
         }
@@ -145,7 +154,7 @@ public class CrudUser {
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if(response.statusCode()==200){
-            return "Usuari actualitzat correctament";
+            return USER_MODIFY;
         }else{
             return returnMessage(response.statusCode());
         }
@@ -159,6 +168,10 @@ public class CrudUser {
      * @throws Exception Si es produeix un error en l'enviament de la petició HTTP.
      */
     public String deleteUser(String id) throws Exception {
+        if(id==null || id.isEmpty()){
+            return ID_ERROR;
+        }
+
         String url = URLRequests.USER_ID_URL.replace("{id}", id);
 
         request = HttpRequest.newBuilder()
@@ -170,7 +183,7 @@ public class CrudUser {
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if(response.statusCode()==200){
-            return "Usuari esborrat correctament";
+            return USER_DELETE;
         }else{
             return returnMessage(response.statusCode());
         }
@@ -182,7 +195,7 @@ public class CrudUser {
      * @param statusCode El codi d'estat de la resposta HTTP.
      * @return Un missatge corresponent al codi d'estat.
      */
-    private String returnMessage(int statusCode){
+    public String returnMessage(int statusCode){
         return switch (statusCode) {
             case 200 -> CORRECT;
             case 201 -> NEW_USER;
@@ -193,5 +206,24 @@ public class CrudUser {
             case 500 -> SERVER_ERROR + ". Code: " + statusCode;
             default -> UNKNOWN_ERROR + ". Code: " + statusCode;
         };
+    }
+
+    /**
+     * Comprova si el nom d'usuari (username) del User passat per a paràmetre
+     * coincideix amb el nom d'usuari d'algun dels usuaris de la base de dades.
+     *
+     * @param user L'usuari que volem comprovar.
+     * @return si el nom d'usuari de l'usuari passat com a paràmetre
+     * coincideix amb algun de la llista.
+     * @throws Exception Si es produeix un error en obtenir la llista d'usuaris amb getAllUsers().
+     */
+    public boolean checkUser(User user) throws Exception {
+        List<User> list = getAllUsers();
+        for (User u : list) {
+            if (u.getNom_usuari().equals(user.getNom_usuari())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

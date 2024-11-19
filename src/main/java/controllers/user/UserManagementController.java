@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.User;
 import model.crud.CrudUser;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -177,7 +179,9 @@ public class UserManagementController {
         txt_user_management_phone.setText(Integer.toString(user.getTelefon()));
         txt_user_management_city.setText(user.getPoblacio());
         if (user.getData_naixement() != null) {
-            txt_user_management_birth.setText(user.getData_naixement().toString());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String date = dateFormat.format(user.getData_naixement());
+            txt_user_management_birth.setText(date);
         } else {
             txt_user_management_birth.setText("00/00/0000");
         }
@@ -222,5 +226,23 @@ public class UserManagementController {
             user.setTelefon(Integer.parseInt(txt_user_management_phone.getText()));
         }
         user.setDescripcio(txt_user_management_description.getText());
+    }
+
+    /**
+     * Configura el CrudUser, útil per injectar mocks en prova.
+     *
+     * @param crudUser la instància de CrudEvent a injectar.
+     */
+    public void setCrudUser(CrudUser crudUser) {
+        this.crudUser = crudUser;
+    }
+
+    /**
+     * Mètode que retorna l'objecte crudUser.
+     *
+     * @return l'objecte `CrudUser`.
+     */
+    public CrudUser getCrudUser(){
+        return this.crudUser;
     }
 }

@@ -98,6 +98,35 @@ public class User {
     }
 
     /**
+     * Constructor que inicialitza tots els camps de l'usuari.
+     *
+     * @param data_naixement la data de naixement de l'usuari
+     * @param nom_c el nom complet de l'usuari
+     * @param funcional_id l'identificador funcional de l'usuari
+     * @param nom_usuari el nom d'usuari
+     * @param contrasenya la contrasenya de l'usuari
+     * @param sexe el sexe de l'usuari
+     * @param poblacio la població on resideix l'usuari
+     * @param email el correu electrònic de l'usuari
+     * @param telefon el telèfon de contacte de l'usuari
+     * @param descripcio una descripció personal de l'usuari
+     */
+    public User(Date data_naixement, String nom_c, String funcional_id, String nom_usuari,
+                String contrasenya, String sexe, String poblacio, String email, int telefon, String descripcio) {
+
+        this.data_naixement = data_naixement;
+        this.nom_c = nom_c;
+        this.funcional_id = funcional_id;
+        this.nom_usuari = nom_usuari;
+        this.contrasenya = contrasenya;
+        this.sexe = sexe;
+        this.poblacio = poblacio;
+        this.email = email;
+        this.telefon = telefon;
+        this.descripcio = descripcio;
+    }
+
+    /**
      * Retorna l'identificador únic de l'usuari.
      *
      * @return l'identificador de l'usuari

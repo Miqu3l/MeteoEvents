@@ -24,6 +24,7 @@ public class EventListController {
 
     /** Missatge d'error quan no s'ha seleccionat un esdeveniment. */
     private static final String RESPONSE_NULL = "Has de seleccionar un esdeveniment.";
+    private static final String DELETE_OK = "Esdeveniment esborrat correctament";
 
     @FXML
     private AnchorPane anch_event_list;
@@ -61,7 +62,7 @@ public class EventListController {
      * @param event l'esdeveniment de clic associat al botó.
      */
     @FXML
-    void onDeleteButtonClick(ActionEvent event) throws Exception {
+    protected void onDeleteButtonClick(ActionEvent event) throws Exception {
         lbl_response_list_event.setText("");
 
         Event selectedEvent = list_events.getSelectionModel().getSelectedItem();
@@ -70,7 +71,7 @@ public class EventListController {
             String id = selectedEvent.getId();
             String status = crudEvent.deleteEvent(id);
 
-            if (status.equals("Esdeveniment esborrat correctament")) {
+            if (status.equals(DELETE_OK)) {
                 list_events.getItems().clear();
                 list = requestEvents();
                 loadList(list);
@@ -88,7 +89,7 @@ public class EventListController {
      * @param event l'esdeveniment de clic associat al botó.
      */
     @FXML
-    void onViewButtonClick(ActionEvent event) throws IOException {
+    protected void onViewButtonClick(ActionEvent event) throws IOException {
         lbl_response_list_event.setText("");
 
         loadPanel(PATH);
@@ -99,7 +100,7 @@ public class EventListController {
      *
      * @return la llista dels esdeveniments trobats a la base de dades.
      */
-    private List<Event> requestEvents() throws Exception {
+    public List<Event> requestEvents() throws Exception {
         return crudEvent.getAllEvents();
     }
 
@@ -117,7 +118,7 @@ public class EventListController {
      *
      * @param path El camí de la vista a carregar.
      */
-    private void loadPanel(String path) throws IOException {
+    public void loadPanel(String path) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
         Node content = fxmlLoader.load();
 
@@ -134,4 +135,72 @@ public class EventListController {
         AnchorPane.setLeftAnchor(content, 0.0);
         AnchorPane.setRightAnchor(content, 0.0);
     }
+
+    public CrudEvent getCrudEvent() {
+        return crudEvent;
+    }
+
+    /**
+     * Configura el CrudEvent, útil per injectar mocks en prova.
+     *
+     * @param crudEvent la instància de CrudEvent a injectar.
+     */
+    public void setCrudEvent(CrudEvent crudEvent) {
+        this.crudEvent = crudEvent;
+    }
+
+    /**
+     * Obté el ListView que conté els esdeveniments.
+     *
+     * @return el ListView d'esdeveniments.
+     */
+    public ListView<Event> getList_events() {
+        return list_events;
+    }
+
+    /**
+     * Estableix el ListView que conté els esdeveniments.
+     *
+     * @param list_events el ListView d'esdeveniments a establir.
+     */
+    public void setList_events(ListView<Event> list_events) {
+        this.list_events = list_events;
+    }
+
+    /**
+     * Obté la llista d'objectes Event.
+     *
+     * @return la llista d'esdeveniments.
+     */
+    public List<Event> getList() {
+        return list;
+    }
+
+    /**
+     * Estableix la llista d'objectes Event.
+     *
+     * @param list la llista d'esdeveniments a establir.
+     */
+    public void setList(List<Event> list) {
+        this.list = list;
+    }
+
+    /**
+     * Obté l'etiqueta Label utilitzada per mostrar missatges de resposta.
+     *
+     * @return el Label de resposta.
+     */
+    public Label getLbl_response_list_event() {
+        return lbl_response_list_event;
+    }
+
+    /**
+     * Estableix l'etiqueta Label utilitzada per mostrar missatges de resposta.
+     *
+     * @param lbl_response_list_event el Label de resposta a establir.
+     */
+    public void setLbl_response_list_event(Label lbl_response_list_event) {
+        this.lbl_response_list_event = lbl_response_list_event;
+    }
+
 }

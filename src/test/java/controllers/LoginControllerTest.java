@@ -58,7 +58,7 @@ class LoginControllerTest {
      * @throws InterruptedException si el fil es veu interromput
      */
     @Test
-    void testAdminLoginSuccessfull() throws IOException, InterruptedException {
+    void testAdminLoginSuccessfully() throws IOException, InterruptedException {
         String result = loginClient.loginUsuari(VALID_ADMIN_USERNAME, VALID_ADMIN_PASSWORD);
 
         assertThat(result).isEqualTo(EXPECTED_LOGIN_MESSAGE);

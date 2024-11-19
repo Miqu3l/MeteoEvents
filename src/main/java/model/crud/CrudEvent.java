@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.TokenSingleton;
 import model.Event;
+import model.User;
 import utilities.URLRequests;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -29,6 +30,8 @@ public class CrudEvent {
     private static final String TOKEN_ERROR = "Token no proporcionat";
     private static final String NEW_EVENT = "Esdeveniment creat correctament";
     private static final String CORRECT = "Operació correcta";
+    private static final String EVENT_EXIST = "Aquest esdeveniment ja existeix.";
+    private static final String ID_ERROR = "Identificador incorrecte";
 
     private HttpClient httpClient;
     private HttpResponse<String> response;
@@ -52,6 +55,10 @@ public class CrudEvent {
      * @throws Exception Si es produeix un error en l'enviament de la petició HTTP.
      */
     public String createEvent(Event event) throws Exception {
+        if(checkEvent(event)){
+            return EVENT_EXIST;
+        }
+
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonRequest = objectMapper.writeValueAsString(event);
 
@@ -159,6 +166,10 @@ public class CrudEvent {
      * @throws Exception Si es produeix un error en l'enviament de la petició HTTP.
      */
     public String deleteEvent(String id) throws Exception {
+        if(id==null || id.isEmpty()){
+            return ID_ERROR;
+        }
+
         String url = URLRequests.EVENT_DELETE_URL.replace("{id}", id);
 
         request = HttpRequest.newBuilder()
@@ -193,5 +204,24 @@ public class CrudEvent {
             case 500 -> SERVER_ERROR + ". Code: " + statusCode;
             default -> UNKNOWN_ERROR + ". Code: " + statusCode;
         };
+    }
+
+    /**
+     * Comprova si el nom de l'esdeveniment de l'esdeveniment passat per a paràmetre
+     * coincideix amb el nom de l'esdeveniment d'algun dels esdeveniments de la base de dades.
+     *
+     * @param event L'esdeveniment que volem comprovar.
+     * @return si el nom de l'esdeveniment passat com a paràmetre
+     * coincideix amb algun de la llista.
+     * @throws Exception Si es produeix un error en obtenir la llista d'esdeveniments amb getAllEvents().
+     */
+    public boolean checkEvent(Event event) throws Exception {
+        List<Event> list = getAllEvents();
+        for (Event e : list) {
+            if (e.getNom().equals(event.getNom())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

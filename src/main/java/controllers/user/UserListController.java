@@ -61,7 +61,7 @@ public class UserListController {
      * @param event l'esdeveniment de clic associat al botó.
      */
     @FXML
-    void onDeleteButtonClick(ActionEvent event) throws Exception {
+    protected void onDeleteButtonClick(ActionEvent event) throws Exception {
         lbl_response_list_user.setText("");
 
         User selectedUser = list_users.getSelectionModel().getSelectedItem();
@@ -88,7 +88,7 @@ public class UserListController {
      * @param event l'esdeveniment de clic associat al botó.
      */
     @FXML
-    void onViewButtonClick(ActionEvent event) throws IOException {
+    protected void onViewButtonClick(ActionEvent event) throws IOException {
         lbl_response_list_user.setText("");
 
         loadPanel(PATH);
@@ -99,7 +99,7 @@ public class UserListController {
      *
      * @return la llista dels usuaris trobats a la base de dades.
      */
-    private List<User> requestUsers() throws Exception {
+    public List<User> requestUsers() throws Exception {
         return crudUser.getAllUsers();
     }
 
@@ -134,5 +134,14 @@ public class UserListController {
         AnchorPane.setBottomAnchor(content, 0.0);
         AnchorPane.setLeftAnchor(content, 0.0);
         AnchorPane.setRightAnchor(content, 0.0);
+    }
+
+    /**
+     * Configura el CrudUser, útil per injectar mocks en prova.
+     *
+     * @param crudUser la instància de CrudEvent a injectar.
+     */
+    public void setCrudUser(CrudUser crudUser) {
+        this.crudUser = crudUser;
     }
 }

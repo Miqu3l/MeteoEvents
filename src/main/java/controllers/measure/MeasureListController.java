@@ -100,7 +100,7 @@ public class MeasureListController {
      *
      * @return la llista de mesures trobades a la base de dades.
      */
-    private List<Measure> requestMeasures() throws Exception {
+    public List<Measure> requestMeasures() throws Exception {
         return crudMeasure.getAllMeasures();
     }
 
@@ -153,5 +153,14 @@ public class MeasureListController {
      */
     public void setAnch_user_list(AnchorPane anch_user_list) {
         this.anch_measure_list = anch_user_list;
+    }
+
+    /**
+     * Configura el CrudMeasure, útil per injectar mocks en prova.
+     *
+     * @param crudMeasure la instància de CrudEvent a injectar.
+     */
+    public void setCrudMeasure(CrudMeasure crudMeasure) {
+        this.crudMeasure = crudMeasure;
     }
 }

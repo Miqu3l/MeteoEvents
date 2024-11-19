@@ -18,6 +18,11 @@ public class TokenSingleton {
     private String jwtToken;
 
     /**
+     * Variable per emmagatzemar l'identificador de l'usuari.
+     */
+    private String id;
+
+    /**
      * Constructor privat per impedir la creació de noves instàncies des de fora de la classe,
      * assegurant que només hi hagi una instància única de TokenSingleton.
      */
@@ -49,5 +54,23 @@ public class TokenSingleton {
      */
     public String getJwtToken() {
         return jwtToken;
+    }
+
+    /**
+     * Mètode per obtenir el valor actual de l'identificador.
+     *
+     * @return L'identificador emmagatzemat.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Mètode per establir el valor de l'identificador.
+     *
+     * @param id El token JWT a emmagatzemar.
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

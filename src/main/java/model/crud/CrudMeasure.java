@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Measure;
 import model.TokenSingleton;
+import model.User;
 import utilities.URLRequests;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -29,11 +30,12 @@ public class CrudMeasure {
     private static final String TOKEN_ERROR = "Token no proporcionat";
     private static final String NEW_MEASURE = "Mesura creada correctament";
     private static final String CORRECT = "Operació correcta";
+    private static final String ID_ERROR = "Identificador incorrecte";
 
     private HttpClient httpClient;
     private HttpResponse<String> response;
     private HttpRequest request;
-    String jwtToken;
+    private String jwtToken;
 
     public CrudMeasure() {
         this.httpClient = HttpClient.newHttpClient();
@@ -155,6 +157,10 @@ public class CrudMeasure {
      * @throws Exception Si es produeix un error en l'enviament de la petició HTTP.
      */
     public String deleteMeasure(String id) throws Exception {
+        if(id==null || id.isEmpty()){
+            return ID_ERROR;
+        }
+
         String url = URLRequests.MEASURE_ID_URL.replace("{id}", id);
 
         request = HttpRequest.newBuilder()

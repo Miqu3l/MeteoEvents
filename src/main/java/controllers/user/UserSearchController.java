@@ -139,4 +139,13 @@ public class UserSearchController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Configura el CrudUser, útil per injectar mocks en prova.
+     *
+     * @param crudUser la instància de CrudEvent a injectar.
+     */
+    public void setCrudUser(CrudUser crudUser) {
+        this.crudUser = crudUser;
+    }
 }
