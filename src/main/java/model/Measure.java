@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Inclou camps per a l'identificador, condició, valor, valor de la unitat de mesura,
  * i acció. Aquesta classe utilitza anotacions de Jackson per a la serialització i
  * deserialització JSON, ignorant propietats desconegudes.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Measure {

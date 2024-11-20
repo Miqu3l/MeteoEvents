@@ -10,6 +10,9 @@ import java.util.Date;
  * data de naixement, població, correu electrònic, telèfon i una descripció.
  * Aquesta classe utilitza anotacions de Jackson per a la serialització i
  * deserialització JSON, ignorant propietats desconegudes.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {

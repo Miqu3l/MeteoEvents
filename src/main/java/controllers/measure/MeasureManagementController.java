@@ -12,6 +12,9 @@ import model.crud.CrudMeasure;
  * Controlador per a la gestió dels esdeveniments de la vista de gestió de les mesures.
  * En aquesta classe es gestionen les interaccions amb els botons per a esborrar,
  * crear o modificar les mesures registrades.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 public class MeasureManagementController {
 

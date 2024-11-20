@@ -1,5 +1,7 @@
 package controllers;
 
+import controllers.event.EventListController;
+import controllers.event.EventManagementController;
 import controllers.user.UserManagementController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.TokenSingleton;
 import model.User;
 import model.crud.CrudUser;
 import model.login.LoginClient;
@@ -78,7 +81,6 @@ public class PrincipalStandardController {
     @FXML
     void onLlistarEsdevenimentButtonClick(ActionEvent event) {
         loadPanel(PathsViews.EVENT_LIST_VIEW);
-        System.out.println(jwtToken);
     }
 
     /**
@@ -89,7 +91,6 @@ public class PrincipalStandardController {
     @FXML
     void onVeureEsdevenimentButtonClick(ActionEvent event) {
         loadPanel(PathsViews.EVENT_SEARCH_VIEW);
-        System.out.println(jwtToken);
     }
 
     /**
@@ -99,7 +100,6 @@ public class PrincipalStandardController {
      */
     public void onVeureUsuariButtonClick(ActionEvent event) {
         loadPanel(PathsViews.USER_MANAGEMENT_VIEW);
-
     }
 
     /**
@@ -108,15 +108,21 @@ public class PrincipalStandardController {
      * @param path El camí de la vista a carregar.
      */
     private void loadPanel(String path) {
-        //CrudUser crudUser = new CrudUser();
-        //User user = crudUser.getUserById("1");
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
             Node content = fxmlLoader.load();
 
-            //UserManagementController controller = fxmlLoader.getController();
-            //controller.setUser(user);
+            if(path.equals(PathsViews.USER_MANAGEMENT_VIEW)){
+                CrudUser crudUser = new CrudUser();
+                User user = crudUser.getUserById(TokenSingleton.getInstance().getId());
+                UserManagementController controller = fxmlLoader.getController();
+                controller.setUser(user);
+                controller.getBtn_user_management_delete().setVisible(false);
+                controller.getBtn_user_management_save().setVisible(false);
+            }else if(path.equals(PathsViews.EVENT_LIST_VIEW)){
+                EventListController controller = fxmlLoader.getController();
+                controller.getBtn_event_list_delete().setVisible(false);
+            }
 
             anch_princStandard_main.getChildren().clear();
             anch_princStandard_main.getChildren().add(content);
@@ -126,7 +132,7 @@ public class PrincipalStandardController {
             AnchorPane.setLeftAnchor(content, 0.0);
             AnchorPane.setRightAnchor(content, 0.0);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

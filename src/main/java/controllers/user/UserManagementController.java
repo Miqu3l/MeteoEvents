@@ -2,6 +2,7 @@ package controllers.user;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.User;
@@ -31,6 +32,9 @@ public class UserManagementController {
     @FXML
     private Label lbl_user_management_id;
 
+    /**
+     * Etiqueta que mostra la resposta de la base de dades.
+     */
     @FXML
     private Label lbl_user_response;
 
@@ -93,6 +97,18 @@ public class UserManagementController {
      */
     @FXML
     private TextField txt_user_management_username;
+
+    /**
+     * Botó per la gestió d'esborrament.
+     */
+    @FXML
+    private Button btn_user_management_delete;
+
+    /**
+     * Botó per la gestió de creació.
+     */
+    @FXML
+    private Button btn_user_management_save;
 
     private User user;
     private CrudUser crudUser;
@@ -244,5 +260,23 @@ public class UserManagementController {
      */
     public CrudUser getCrudUser(){
         return this.crudUser;
+    }
+
+    /**
+     * Obté el botó d'eliminació per a la gestió d'usuaris.
+     *
+     * @return el botó btn_user_management_delete
+     */
+    public Button getBtn_user_management_delete() {
+        return btn_user_management_delete;
+    }
+
+    /**
+     * Obté el botó de desament per a la gestió d'usuaris.
+     *
+     * @return el botó btn_user_management_save
+     */
+    public Button getBtn_user_management_save() {
+        return btn_user_management_save;
     }
 }

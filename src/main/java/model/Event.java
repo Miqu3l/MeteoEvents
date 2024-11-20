@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * direcció, codi postal, població, aforament i horari.
  * Aquesta classe utilitza anotacions de Jackson per a la serialització i
  * deserialització JSON, ignorant propietats desconegudes.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Event {

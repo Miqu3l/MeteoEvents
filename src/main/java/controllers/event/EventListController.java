@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
@@ -36,6 +37,10 @@ public class EventListController {
     /** Label on es mostra el missatge de resposta del servidor en cas d'error. */
     @FXML
     private Label lbl_response_list_event;
+
+    /** Botó per la gestió de l'esborrament d'esdeveniments */
+    @FXML
+    private Button btn_event_list_delete;
 
     private static final String PATH = PathsViews.EVENT_MANAGEMENT_VIEW;
 
@@ -203,4 +208,12 @@ public class EventListController {
         this.lbl_response_list_event = lbl_response_list_event;
     }
 
+    /**
+     * Obté el botó d'eliminació per a la gestió d'esdeveniments.
+     *
+     * @return el botó btn_event_management_delete
+     */
+    public Button getBtn_event_list_delete() {
+        return btn_event_list_delete;
+    }
 }

@@ -19,6 +19,9 @@ import java.util.List;
  * Controlador per a la interfície d'usuari de la llista d'usuaris.
  * Gestiona les accions dels botons "Guardar" i "Visualitzar" i proporciona
  * mètodes per obtenir i establir el panell de la llista d'usuaris.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 public class UserListController {
 

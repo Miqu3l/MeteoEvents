@@ -189,7 +189,6 @@ public class LoginClient {
      * Setter del token JWT.
      *
      * @param jwtToken El token JWT a establir.
-     * @return El token com a cadena de text.
      */
 
     public void setJwtToken(String jwtToken) {

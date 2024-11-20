@@ -17,6 +17,9 @@ import java.io.IOException;
  * Controlador per a la funcionalitat de cerca d'usuaris.
  * Gestiona la selecció del criteri de cerca (ID, nom o nom d'usuari)
  * i executa la cerca segons l'atribut i valor introduïts.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 public class UserSearchController {
 

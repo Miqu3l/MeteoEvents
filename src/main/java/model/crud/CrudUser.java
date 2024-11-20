@@ -18,6 +18,9 @@ import java.util.PrimitiveIterator;
  * (crear, llegir, actualitzar i esborrar) sobre els usuaris en el servidor.
  * Les peticions s'envien al servidor mitjançant la classe HttpClient i inclouen
  * autenticació amb token JWT.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 public class CrudUser {
 

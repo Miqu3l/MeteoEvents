@@ -19,6 +19,9 @@ import java.util.List;
  * Controlador per a la visualització de la llista de mesures.
  * Gestiona les accions dels botons "Guardar" i "Visualitzar" i proporciona
  * mètodes per obtenir i establir el panell de la llista de mesures.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 public class MeasureListController {
 
