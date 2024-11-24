@@ -19,6 +19,13 @@ module org.meteoevents.meteoevents {
     exports controllers.measure;
     opens controllers.measure to javafx.fxml;
     exports model to com.fasterxml.jackson.databind;
+    exports controllers.aemet;
+    opens controllers.aemet to javafx.fxml;
+
+    exports model.aemet;
 
 
+    //requires org.junit.jupiter.api;
+    //requires org.mockito;
+    //requires org.assertj.core;
 }

@@ -133,6 +133,23 @@
                   <Insets left="20.0" top="20.0" />
                </VBox.margin>
             </VBox>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0">
+               <children>
+                  <Label text="Previsió meteorològica">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btn_princ_previsio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onPrevisioButtonClick" style="-fx-background-color: BCFCFF;" text="Nova mesura de prevenció">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </VBox.margin>
+            </VBox>
          </children>
       </VBox>
       <VBox alignment="TOP_RIGHT" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: FFFFFF;" HBox.hgrow="ALWAYS">

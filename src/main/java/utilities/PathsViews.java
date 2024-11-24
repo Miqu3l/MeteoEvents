@@ -83,4 +83,9 @@ public class PathsViews {
      */
     public static final String EVENT_SEARCH_VIEW = "/org/meteoevents/meteoevents/event/event-search-view.fxml";
 
+    /**
+     * Ruta a la vista per demanar i visualitzar una previsió meteorològica per municipi a l'Aemet.
+     * Vista utilitzada per demanar la previsió meteorològica a l'Aemet.
+     */
+    public static final String AEMET_FORECAST_VIEW = "/org/meteoevents/meteoevents/aemet/aemet-forecast-view.fxml";
 }

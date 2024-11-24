@@ -11,7 +11,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.PrimitiveIterator;
 
 /**
  * Classe CrudUser que proporciona mètodes per realitzar operacions CRUD

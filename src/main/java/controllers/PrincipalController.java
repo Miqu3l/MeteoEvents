@@ -30,7 +30,7 @@ public class PrincipalController {
 
     /** Botó que gestiona el tancament de sessió i el retorn a la pantalla de login. */
     @FXML
-    Button btn_princ_close;
+    private Button btn_princ_close;
 
     /** Token JWT utilitzat per a l'autenticació de l'usuari. */
     String jwtToken;
@@ -215,6 +215,14 @@ public class PrincipalController {
     void onVeureTreballadorButtonClick(ActionEvent event) {
         loadPanel(PathsViews.USER_SEARCH_VIEW);
     }
+
+    /**
+     * Gestiona l'esdeveniment del botó per veure demanar una previsió meteorològica.
+     *
+     * @param event L'esdeveniment del botó.
+     */
+    @FXML
+    void onPrevisioButtonClick(ActionEvent event) {loadPanel((PathsViews.AEMET_FORECAST_VIEW));    }
 
     /**
      * Carrega un nou panell.

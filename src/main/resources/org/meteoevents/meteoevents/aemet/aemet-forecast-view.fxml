@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anch_forecast" prefHeight="542.0" prefWidth="600.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.aemet.AemetForecastController">
+   <children>
+      <TextArea fx:id="txt_weather_forecast" layoutX="67.0" layoutY="78.0" prefHeight="385.0" prefWidth="466.0" style="-fx-background-color: FFFFFF;" />
+      <Button fx:id="btn_weather_request" layoutX="518.0" layoutY="506.0" mnemonicParsing="false" onAction="#onWeatherRequestButtonClick" style="-fx-background-color: BCFCFF;" text="Previsió" />
+      <Label alignment="CENTER" layoutX="197.0" layoutY="14.0" style="-fx-background-color: FFFFFF;" text="AEMET FORESCAST">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_weather_response" layoutX="50.0" layoutY="479.0" prefHeight="26.0" prefWidth="365.0" textFill="RED">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
