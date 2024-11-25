@@ -96,6 +96,11 @@ public class AemetResponse {
             private List<Probabilidad> probPrecipitacion;
             private List<Viento> vientoAndRachaMax;
             private List<ProbTormenta> probTormenta;
+            private List<Nieve> nieve;
+            private List<probNieve> probNieve;
+            private List<Temperatura> temperatura;
+            private List<sensTermica> sensTermica;
+            private List<humedadRelativa> humedadRelativa;
 
             // Getters and setters
             public List<ProbTormenta> getProbTormenta() {
@@ -160,6 +165,46 @@ public class AemetResponse {
 
             public void setVientoAndRachaMax(List<Viento> vientoAndRachaMax) {
                 this.vientoAndRachaMax = vientoAndRachaMax;
+            }
+
+            public List<Nieve> getNieve() {
+                return nieve;
+            }
+
+            public void setNieve(List<Nieve> nieve) {
+                this.nieve = nieve;
+            }
+
+            public List<Dia.probNieve> getProbNieve() {
+                return probNieve;
+            }
+
+            public void setProbNieve(List<Dia.probNieve> probNieve) {
+                this.probNieve = probNieve;
+            }
+
+            public List<Temperatura> getTemperatura() {
+                return temperatura;
+            }
+
+            public void setTemperatura(List<Temperatura> temperatura) {
+                this.temperatura = temperatura;
+            }
+
+            public List<Dia.sensTermica> getSensTermica() {
+                return sensTermica;
+            }
+
+            public void setSensTermica(List<Dia.sensTermica> sensTermica) {
+                this.sensTermica = sensTermica;
+            }
+
+            public List<Dia.humedadRelativa> getHumedadRelativa() {
+                return humedadRelativa;
+            }
+
+            public void setHumedadRelativa(List<Dia.humedadRelativa> humedadRelativa) {
+                this.humedadRelativa = humedadRelativa;
             }
 
 
@@ -311,6 +356,131 @@ public class AemetResponse {
 
                 public void setValue(int value) {
                     this.value = value;
+                }
+            }
+
+
+
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class Nieve {
+                private String value;
+                private String periodo;
+
+                // Getters y Setters
+                public String getValue() {
+                    return value;
+                }
+
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                public String getPeriodo() {
+                    return periodo;
+                }
+
+                public void setPeriodo(String periodo) {
+                    this.periodo = periodo;
+                }
+            }
+
+
+
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class probNieve {
+                private String value;
+                private String periodo;
+
+                // Getters y Setters
+                public String getValue() {
+                    return value;
+                }
+
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                public String getPeriodo() {
+                    return periodo;
+                }
+
+                public void setPeriodo(String periodo) {
+                    this.periodo = periodo;
+                }
+            }
+
+
+
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class Temperatura {
+                private String value;
+                private String periodo;
+
+                // Getters y Setters
+                public String getValue() {
+                    return value;
+                }
+
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                public String getPeriodo() {
+                    return periodo;
+                }
+
+                public void setPeriodo(String periodo) {
+                    this.periodo = periodo;
+                }
+            }
+
+
+
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class sensTermica {
+                private String value;
+                private String periodo;
+
+                // Getters y Setters
+                public String getValue() {
+                    return value;
+                }
+
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                public String getPeriodo() {
+                    return periodo;
+                }
+
+                public void setPeriodo(String periodo) {
+                    this.periodo = periodo;
+                }
+            }
+
+
+
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class humedadRelativa {
+                private String value;
+                private String periodo;
+
+                // Getters y Setters
+                public String getValue() {
+                    return value;
+                }
+
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                public String getPeriodo() {
+                    return periodo;
+                }
+
+                public void setPeriodo(String periodo) {
+                    this.periodo = periodo;
                 }
             }
         }

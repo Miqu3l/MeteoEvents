@@ -31,8 +31,15 @@ public class AemetForecastController {
     @FXML
     void onWeatherRequestButtonClick(ActionEvent event) throws Exception {
         try {
+            String codiMunicipi = "43028";
+            String dataBuscada = "2024-12-26T00:00:00";
+            String horaBuscada = "02";
+            String periodeBuscat ="0107";
+
+            boolean dataTrobada = false;
+
             AemetRequest request = new AemetRequest();
-            String response = request.aemetForecastRequest();
+            String response = request.aemetForecastRequest(codiMunicipi);
 
             if (!AEMET_ERROR.equals(response)) {
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -41,15 +48,12 @@ public class AemetForecastController {
 
                 AemetResponse aemetResponse = aemetResponses.get(0);
 
-                String dataBuscada = "2024-11-26T00:00:00";
-                String horaBuscada = "02";
-                String periodeBuscat ="0107";
-
                 for (AemetResponse.Prediccion.Dia dia : aemetResponse.getPrediccion().getDia()) {
                     if (dia.getFecha().equals(dataBuscada)) {
+                        dataTrobada= true;
                         System.out.println("Dades per la data: " + dataBuscada);
 
-                        //Buscar velicitat de vent mitja i ratxa màxima.
+                        //Buscar velocitat de vent mitja i ratxa màxima.
                         if (dia.getVientoAndRachaMax() != null) {
                             for (AemetResponse.Prediccion.Dia.Viento vent : dia.getVientoAndRachaMax()) {
                                 if (horaBuscada.equals(vent.getPeriodo())) {
@@ -88,7 +92,55 @@ public class AemetForecastController {
                                 }
                             }
                         }
+
+                        //Buscar neu
+                        if (dia.getNieve() != null) {
+                            for (AemetResponse.Prediccion.Dia.Nieve neu : dia.getNieve()) {
+                                if (horaBuscada.equals(neu.getPeriodo())){
+                                    System.out.println("Neu: " + neu.getValue());
+                                }
+                            }
+                        }
+
+                        //Buscar probabilitat de neu
+                        if (dia.getProbNieve() != null) {
+                            for (AemetResponse.Prediccion.Dia.probNieve probNeu : dia.getProbNieve()) {
+                                if (periodeBuscat.equals(probNeu.getPeriodo())){
+                                    System.out.println("Probabilitat de nevada: " + probNeu.getValue());
+                                }
+                            }
+                        }
+
+                        //Buscar temperatura
+                        if (dia.getTemperatura() != null) {
+                            for (AemetResponse.Prediccion.Dia.Temperatura temperatura : dia.getTemperatura()) {
+                                if (horaBuscada.equals(temperatura.getPeriodo())){
+                                    System.out.println("Temperatura: " + temperatura.getValue());
+                                }
+                            }
+                        }
+
+                        //Buscar sensació tèrmica
+                        if (dia.getSensTermica() != null) {
+                            for (AemetResponse.Prediccion.Dia.sensTermica sensTermica : dia.getSensTermica()) {
+                                if (horaBuscada.equals(sensTermica.getPeriodo())){
+                                    System.out.println("Sensació tèrmica: " + sensTermica.getValue());
+                                }
+                            }
+                        }
+
+                        //Buscar humitat relativa
+                        if (dia.getHumedadRelativa() != null) {
+                            for (AemetResponse.Prediccion.Dia.humedadRelativa humitatRelativa : dia.getHumedadRelativa()) {
+                                if (horaBuscada.equals(humitatRelativa.getPeriodo())){
+                                    System.out.println("Humitat relativa: " + humitatRelativa.getValue());
+                                }
+                            }
+                        }
                     }
+                }
+                if (!dataTrobada) {
+                    System.out.println("La previsió per aquesta data no està disponible");
                 }
             } else {
                 lbl_weather_response.setText(response);

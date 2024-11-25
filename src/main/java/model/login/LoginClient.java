@@ -141,9 +141,6 @@ public class LoginClient {
 
         response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println("Codi de resposta del servidor: " + response.statusCode()
-                + "\nMissatge del servidor: " + response.body());
-
         //Esborra el token
         jwtToken = "";
 

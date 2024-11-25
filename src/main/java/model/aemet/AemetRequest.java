@@ -10,7 +10,7 @@ import java.net.http.HttpResponse;
 public class AemetRequest {
 
     private static final String URL = "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/" +
-            "horaria/43028";
+            "horaria/";
     private static final String AEMET_TOKEN = "/?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtcmdhcnJpZ2FAZ21haWwuY29tIiwianRpIjoiZDEwMT" +
             "MyNGEtNTE4ZC00OTQ4LTk2NzYtYTBiYjBhMjU5OTZjIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE3MjU0NzE1NTksInVzZXJJZCI6" +
             "ImQxMDEzMjRhLTUxOGQtNDk0OC05Njc2LWEwYmIwYTI1OTk2YyIsInJvbGUiOiIifQ.MeI-InPKbLkkDibtj4KWpT8V-Tz3eoz" +
@@ -24,9 +24,9 @@ public class AemetRequest {
         this.httpClient = HttpClient.newHttpClient();
     }
 
-    public String aemetForecastRequest() throws Exception{
+    public String aemetForecastRequest(String codiMunicipi) throws Exception{
         request = HttpRequest.newBuilder()
-                .uri(URI.create(URL + AEMET_TOKEN))
+                .uri(URI.create(URL + codiMunicipi + AEMET_TOKEN))
                 .GET()
                 .header("cache-control", "no-cache")
                 .build();
