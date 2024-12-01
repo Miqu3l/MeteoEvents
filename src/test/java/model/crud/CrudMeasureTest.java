@@ -1,6 +1,6 @@
 package model.crud;
 
-import model.Measure;
+import model.model.Measure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;

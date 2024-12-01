@@ -1,6 +1,6 @@
 package model.crud;
 
-import model.User;
+import model.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Date;

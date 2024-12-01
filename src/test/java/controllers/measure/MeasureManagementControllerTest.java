@@ -1,6 +1,6 @@
 package controllers.measure;
 
-import model.Measure;
+import model.model.Measure;
 import model.crud.CrudMeasure;
 import model.login.LoginClient;
 import org.junit.jupiter.api.*;

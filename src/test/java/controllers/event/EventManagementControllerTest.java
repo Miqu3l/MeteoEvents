@@ -1,6 +1,6 @@
 package controllers.event;
 
-import model.Event;
+import model.model.Event;
 import model.crud.CrudEvent;
 import model.login.LoginClient;
 import org.junit.jupiter.api.*;

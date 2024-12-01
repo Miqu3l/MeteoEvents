@@ -1,6 +1,6 @@
 package model.crud;
 
-import model.Event;
+import model.model.Event;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;

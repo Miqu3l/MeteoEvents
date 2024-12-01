@@ -3,10 +3,17 @@ package model.aemet;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Classe POJO que serveix per deserialitzar la resposta obtinguda per l'AEMET en format Json.
+ * Conté diferents classes internes per poder adaptar-se al format de resposta de l'AEMET.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AemetResponse {
 
+    /** Informació sobre l'origen de les dades meteorològiques */
     private Origen origen;
+
+    /** Informació detallada sobre la predicció meteorològica */
     private Prediccion prediccion;
 
     // Getters y Setters
@@ -28,6 +35,9 @@ public class AemetResponse {
 
 
 
+    /**
+     * Classe que representa l'origen de les dades meteorològiques.
+     */
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Origen {
         private String productor;
@@ -71,6 +81,10 @@ public class AemetResponse {
 
 
 
+    /**
+     * Classe que conté la predicció meteorològica.
+     * Inclou una llista d'informació meteorològica agrupada per dies.
+     */
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Prediccion {
         private List<Dia> dia;
@@ -86,6 +100,9 @@ public class AemetResponse {
 
 
 
+        /**
+         * Classe que representa la informació meteorològica per a un dia específic.
+         */
         @JsonIgnoreProperties(ignoreUnknown = true)
         public static class Dia {
             private String fecha;
@@ -209,6 +226,9 @@ public class AemetResponse {
 
 
 
+            /**
+             * Classe que representa l'estat del cel.
+             */
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class EstadoCielo {
                 private String value;
@@ -243,6 +263,9 @@ public class AemetResponse {
 
 
 
+            /**
+             * Classe que representa la quantitat de precipitació.
+             */
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class Precipitacion {
                 private String value;
@@ -268,6 +291,9 @@ public class AemetResponse {
 
 
 
+            /**
+             * Classe que representa la probabilitat de precipitació.
+             */
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class Probabilidad {
                 private String value;
@@ -293,6 +319,9 @@ public class AemetResponse {
 
 
 
+            /**
+             * Classe que representa la quantitat de vent i de ratxa màxima.
+             */
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class Viento {
                 private List<String> direccion;
@@ -336,6 +365,9 @@ public class AemetResponse {
 
 
 
+            /**
+             * Classe que representa la probabilitat de tempesta.
+             */
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class ProbTormenta {
                 private String periodo;
@@ -361,6 +393,9 @@ public class AemetResponse {
 
 
 
+            /**
+             * Classe que representa la quantitat de neu.
+             */
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class Nieve {
                 private String value;
@@ -386,6 +421,9 @@ public class AemetResponse {
 
 
 
+            /**
+             * Classe que representa la probabilitat de nevada.
+             */
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class probNieve {
                 private String value;
@@ -411,6 +449,9 @@ public class AemetResponse {
 
 
 
+            /**
+             * Classe que representa la temperatura.
+             */
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class Temperatura {
                 private String value;
@@ -436,6 +477,9 @@ public class AemetResponse {
 
 
 
+            /**
+             * Classe que representa la sensació tèrmica.
+             */
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class sensTermica {
                 private String value;
@@ -461,6 +505,9 @@ public class AemetResponse {
 
 
 
+            /**
+             * Classe que representa la humitat relativa.
+             */
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class humedadRelativa {
                 private String value;

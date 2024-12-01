@@ -2,8 +2,8 @@ package model.crud;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.TokenSingleton;
-import model.User;
+import model.tokenSingleton.TokenSingleton;
+import model.model.User;
 import utilities.URLRequests;
 import java.net.URI;
 import java.net.http.HttpClient;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.TokenSingleton;
+import model.tokenSingleton.TokenSingleton;
 import org.meteoevents.meteoevents.App;
 import utilities.PathsViews;
 import utilities.URLRequests;

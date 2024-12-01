@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import model.Event;
+import model.model.Event;
 import model.crud.CrudEvent;
 import utilities.PathsViews;
 import java.io.IOException;

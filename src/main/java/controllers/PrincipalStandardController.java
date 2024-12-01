@@ -1,7 +1,6 @@
 package controllers;
 
 import controllers.event.EventListController;
-import controllers.event.EventManagementController;
 import controllers.user.UserManagementController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,8 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.TokenSingleton;
-import model.User;
+import model.tokenSingleton.TokenSingleton;
+import model.model.User;
 import model.crud.CrudUser;
 import model.login.LoginClient;
 import utilities.PathsViews;

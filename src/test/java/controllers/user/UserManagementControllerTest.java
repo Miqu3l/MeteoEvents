@@ -1,17 +1,14 @@
 package controllers.user;
 
-import model.User;
+import model.model.User;
 import model.crud.CrudUser;
 import model.login.LoginClient;
 import org.junit.jupiter.api.*;
 
-import java.io.IOException;
-import java.net.http.HttpClient;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Classe de proves per a la gestió d'usuaris.

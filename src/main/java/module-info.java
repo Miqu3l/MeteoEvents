@@ -18,12 +18,14 @@ module org.meteoevents.meteoevents {
     opens controllers.event to javafx.fxml;
     exports controllers.measure;
     opens controllers.measure to javafx.fxml;
-    exports model to com.fasterxml.jackson.databind;
+    exports model.model to com.fasterxml.jackson.databind;
     exports controllers.aemet;
     opens controllers.aemet to javafx.fxml;
 
     exports model.aemet;
-
+    exports controllers.login;
+    opens controllers.login to javafx.fxml;
+    exports model.tokenSingleton to com.fasterxml.jackson.databind;
 
     //requires org.junit.jupiter.api;
     //requires org.mockito;

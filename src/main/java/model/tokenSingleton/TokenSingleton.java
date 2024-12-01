@@ -1,4 +1,4 @@
-package model;
+package model.tokenSingleton;
 
 /**
  * Classe que implementa el patró Singleton per gestionar una instància única d'un token JWT.
