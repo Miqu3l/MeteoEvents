@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.encryption.CipherUtil;
 import model.tokenSingleton.TokenSingleton;
 import org.meteoevents.meteoevents.App;
 import utilities.PathsViews;
@@ -16,6 +17,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 /**
  * Classe que gestiona el procés d'inici de sessió d'un usuari, mitjançant una sol·licitud HTTP,
@@ -75,11 +77,14 @@ public class LoginClient {
      * @throws InterruptedException Si el fil que s'està executant es veu interromput
      *                              mentre espera la resposta del servidor.
      */
-    public String loginUsuari(String nomUsuari, String contrasenya) throws IOException, InterruptedException {
+    public String loginUsuari(String nomUsuari, String contrasenya) throws Exception {
+        // Encripta la contrasenya i la codifica amb Base64
+        String contrasenyaEncriptada = CipherUtil.encrypt(contrasenya);
+        String contrasenyaBase64 = Base64.getEncoder().encodeToString(contrasenyaEncriptada.getBytes());
 
         // Codifica els paràmetre per obtindre una URL correcta en cas de trobar algun caràcter especial
         String params = "nomUsuari=" + URLEncoder.encode(nomUsuari, StandardCharsets.UTF_8)
-                + "&contrasenya=" + URLEncoder.encode(contrasenya, StandardCharsets.UTF_8);
+                + "&contrasenya=" + contrasenyaBase64;
 
         // Crea la petició HTTP POST
         HttpRequest request = HttpRequest.newBuilder()
@@ -95,9 +100,11 @@ public class LoginClient {
         // i retorna un missatge amb ladminaa confirmació de la connexió
         switch (response.statusCode()) {
             case 200:
+                //Desencriptar la resposta
+                String decryptedResponse = CipherUtil.decrypt(response.body());
                 //Jackson per extreure la informació del JSON retornat
                 ObjectMapper objectMapper = new ObjectMapper();
-                JsonNode jsonNode = objectMapper.readTree(response.body());
+                JsonNode jsonNode = objectMapper.readTree(decryptedResponse);
                 jwtToken = jsonNode.get("token").asText();
                 funcionalID = jsonNode.get("funcionalId").asText();
                 id = jsonNode.get("usuariId").asText();

@@ -32,6 +32,10 @@ public class PrincipalController {
     @FXML
     private Button btn_princ_close;
 
+    /** Botó que gestiona la visualització de l'estat d'un esdeveniment. */
+    @FXML
+    private Button btn_princ_estat_esd;
+
     /** Token JWT utilitzat per a l'autenticació de l'usuari. */
     String jwtToken;
 
@@ -94,6 +98,16 @@ public class PrincipalController {
     @FXML
     void onBorrarTreballadorButtonClick(ActionEvent event) {
         loadPanel(PathsViews.USER_SEARCH_VIEW);
+    }
+
+    /**
+     * Gestiona l'esdeveniment del botó per mostrar l'estat d'un esdeveniment.
+     *
+     * @param event L'esdeveniment del botó.
+     */
+    @FXML
+    void onLEstatEsdevenimentButtonClick(ActionEvent event) {
+        // TODO
     }
 
     /**

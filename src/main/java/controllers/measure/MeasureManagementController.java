@@ -52,6 +52,10 @@ public class MeasureManagementController {
     @FXML
     private TextField txt_measure_management_valor_uml;
 
+    /** Camp de text per introduir o mostrar el nivell d'alerta de la mesura. */
+    @FXML
+    private TextField txt_measure_management_nivell;
+
     private Measure measure;
     private CrudMeasure crudMeasure;
 
@@ -134,6 +138,7 @@ public class MeasureManagementController {
         txt_measure_management_valor_uml.setText(measure.getValorUm());
         txt_measure_management_accio.setText(measure.getAccio());
         txt_measure_management_condicio.setText(measure.getCondicio());
+        txt_measure_management_nivell.setText(measure.getNivell_mesura());
     }
 
     /**
@@ -145,6 +150,7 @@ public class MeasureManagementController {
         txt_measure_management_valor_uml.setText("");
         txt_measure_management_accio.setText("");
         txt_measure_management_condicio.setText("");
+        txt_measure_management_nivell.setText("");
     }
 
     /**
@@ -155,5 +161,6 @@ public class MeasureManagementController {
         measure.setValor(Double.parseDouble(txt_measure_management_valor.getText()));
         measure.setCondicio(txt_measure_management_condicio.getText());
         measure.setValorUm(txt_measure_management_valor_uml.getText());
+        measure.setNivell_mesura(txt_measure_management_nivell.getText());
     }
 }

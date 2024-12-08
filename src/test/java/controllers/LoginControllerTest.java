@@ -58,7 +58,7 @@ class LoginControllerTest {
      * @throws InterruptedException si el fil es veu interromput
      */
     @Test
-    void testAdminLoginSuccessfully() throws IOException, InterruptedException {
+    void testAdminLoginSuccessfully() throws Exception {
         String result = loginClient.loginUsuari(VALID_ADMIN_USERNAME, VALID_ADMIN_PASSWORD);
 
         assertThat(result).isEqualTo(EXPECTED_LOGIN_MESSAGE);
@@ -75,7 +75,7 @@ class LoginControllerTest {
      * @throws InterruptedException si el fil es veu interromput
      */
     @Test
-    void testStandardLoginSuccessfull() throws IOException, InterruptedException {
+    void testStandardLoginSuccessfull() throws Exception {
         String result = loginClient.loginUsuari(VALID_STANDARD_USERNAME, VALID_STANDARD_PASSWORD);
 
         assertThat(result).isEqualTo(EXPECTED_LOGIN_MESSAGE);
@@ -91,7 +91,7 @@ class LoginControllerTest {
      * @throws InterruptedException si el fil es veu interromput
      */
     @Test
-    public void incorrectCredentialsTest() throws IOException, InterruptedException {
+    public void incorrectCredentialsTest() throws Exception {
         String result = loginClient.loginUsuari(INVALID_USERNAME, INVALID_PASSWORD);
 
         assertThat(result).isEqualTo(INCORRECT_CREDENTIAL_MESSAGE);
@@ -117,6 +117,8 @@ class LoginControllerTest {
             assertTrue(result.contains(SIMULATED_EXCEPTION));
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -138,6 +140,8 @@ class LoginControllerTest {
             assertTrue(result.contains(SIMULATED_EXCEPTION));
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

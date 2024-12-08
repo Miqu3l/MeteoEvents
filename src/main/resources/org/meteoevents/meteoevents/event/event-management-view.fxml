@@ -79,7 +79,23 @@
                         <Insets left="15.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefWidth="150.0" text="Horari">
+                  <Label prefWidth="150.0" text="Hora d'inici">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefWidth="150.0" text="Hora final">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefWidth="150.0" text="Data">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -140,7 +156,17 @@
                         <Insets left="5.0" right="15.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="txt_event_management_time" opacity="0.5">
+                  <TextField fx:id="txt_event_management_initialtime" opacity="0.5">
+                     <VBox.margin>
+                        <Insets left="5.0" right="15.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="txt_event_management_endtime" opacity="0.5">
+                     <VBox.margin>
+                        <Insets left="5.0" right="15.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="txt_event_management_date" opacity="0.5">
                      <VBox.margin>
                         <Insets left="5.0" right="15.0" top="10.0" />
                      </VBox.margin>

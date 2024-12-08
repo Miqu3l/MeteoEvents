@@ -55,6 +55,14 @@
                         <Insets left="15.0" top="10.0" />
                      </VBox.margin>
                   </Label>
+                  <Label prefWidth="150.0" text="Nivell d'alerta">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
                <opaqueInsets>
                   <Insets />
@@ -89,6 +97,11 @@
                      </VBox.margin>
                   </TextField>
                   <TextField fx:id="txt_measure_management_accio" opacity="0.5">
+                     <VBox.margin>
+                        <Insets left="5.0" right="15.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="txt_measure_management_nivell" opacity="0.5">
                      <VBox.margin>
                         <Insets left="5.0" right="15.0" top="10.0" />
                      </VBox.margin>

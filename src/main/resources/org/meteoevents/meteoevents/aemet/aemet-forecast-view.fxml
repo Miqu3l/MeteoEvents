@@ -3,12 +3,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anch_forecast" prefHeight="542.0" prefWidth="600.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.aemet.AemetForecastController">
    <children>
-      <TextArea fx:id="txt_weather_forecast" layoutX="67.0" layoutY="78.0" prefHeight="385.0" prefWidth="466.0" style="-fx-background-color: FFFFFF;" />
+      <TextArea fx:id="txt_weather_forecast" layoutX="67.0" layoutY="172.0" prefHeight="306.0" prefWidth="466.0" style="-fx-background-color: FFFFFF;" />
       <Button fx:id="btn_weather_request" layoutX="518.0" layoutY="506.0" mnemonicParsing="false" onAction="#onWeatherRequestButtonClick" style="-fx-background-color: BCFCFF;" text="Previsió" />
       <Label alignment="CENTER" layoutX="197.0" layoutY="14.0" style="-fx-background-color: FFFFFF;" text="AEMET FORESCAST">
          <font>
@@ -20,5 +21,23 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <Label layoutX="67.0" layoutY="65.0" text="Introdueix el codi de la població:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_previsio_municipi" layoutX="353.0" layoutY="65.0" prefHeight="26.0" prefWidth="181.0" promptText="43028" />
+      <TextField fx:id="txt_previsio_data" layoutX="352.0" layoutY="98.0" prefHeight="26.0" prefWidth="182.0" promptText="AAAA-MM-DD" />
+      <Label layoutX="67.0" layoutY="98.0" text="Introdueix la data:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="130.0" text="Introdueix la hora:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_previsio_hora" layoutX="352.0" layoutY="130.0" prefHeight="26.0" prefWidth="182.0" promptText="00" />
    </children>
 </AnchorPane>

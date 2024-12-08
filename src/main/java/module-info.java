@@ -27,6 +27,8 @@ module org.meteoevents.meteoevents {
     opens controllers.login to javafx.fxml;
     exports model.tokenSingleton to com.fasterxml.jackson.databind;
 
+    opens model.model to com.fasterxml.jackson.databind;
+
     //requires org.junit.jupiter.api;
     //requires org.mockito;
     //requires org.assertj.core;

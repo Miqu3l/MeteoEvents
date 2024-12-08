@@ -1,7 +1,9 @@
 package model.crud;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.encryption.CipherUtil;
 import model.model.Measure;
 import model.tokenSingleton.TokenSingleton;
 import utilities.URLRequests;
@@ -54,12 +56,13 @@ public class CrudMeasure {
     public String createMeasure(Measure measure) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonRequest = objectMapper.writeValueAsString(measure);
+        String encryptedMeasure = CipherUtil.encrypt(jsonRequest);
 
         request = HttpRequest.newBuilder()
                 .uri(URI.create(URLRequests.MEASURE_CREATE_URL))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
-                .POST(HttpRequest.BodyPublishers.ofString(jsonRequest, StandardCharsets.UTF_8))
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
+                .POST(HttpRequest.BodyPublishers.ofString(encryptedMeasure, StandardCharsets.UTF_8))
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -81,15 +84,16 @@ public class CrudMeasure {
         request = HttpRequest.newBuilder()
                 .uri(URI.create(URLRequests.MEASURE_LIST_URL))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
                 .GET()
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
+            String decryptedMeasure = CipherUtil.decrypt(response.body());
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(response.body(), new TypeReference<List<Measure>>() {});
+            return objectMapper.readValue(decryptedMeasure, new TypeReference<List<Measure>>() {});
         } else {
             throw new RuntimeException("Error en la solicitud: " + response.statusCode());
         }
@@ -108,15 +112,18 @@ public class CrudMeasure {
         request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
                 .GET()
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
+            String decryptedMeasure = CipherUtil.decrypt(response.body());
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(response.body(), new TypeReference<Measure>() {});
+            JsonNode rootNode = objectMapper.readTree(decryptedMeasure);
+            JsonNode bodyNode = rootNode.get("body");
+            return objectMapper.treeToValue(bodyNode, Measure.class);
         } else {
             return null;
         }
@@ -132,14 +139,15 @@ public class CrudMeasure {
     public String updateMeasure(Measure measure) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(measure);
+        String encryptedRequest = CipherUtil.encrypt(requestBody);
 
         String url = URLRequests.MEASURE_CREATE_URL + "/" + measure.getId();
 
         request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
-                .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
+                .PUT(HttpRequest.BodyPublishers.ofString(encryptedRequest))
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -167,7 +175,7 @@ public class CrudMeasure {
 
         request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
-                .header("Authorization", "Bearer " + jwtToken)
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
                 .DELETE()
                 .build();
 

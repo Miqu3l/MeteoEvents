@@ -48,9 +48,17 @@ public class Event {
     @JsonProperty("aforament")
     private int aforament;
 
+    /** Hora d'inici de l'esdeveniment */
+    @JsonProperty("hora_inici")
+    private String horaInici;
+
+    /** Hora final de l'esdeveniment */
+    @JsonProperty("hora_fi")
+    private String horaFi;
+
     /** Horari de l'esdeveniment */
-    @JsonProperty("horari")
-    private String horari;
+    @JsonProperty("data_esde")
+    private String dataEsde;
 
     /** Constructor per defecte */
     public Event() {
@@ -67,10 +75,12 @@ public class Event {
      * @param codiPostal el codi postal de l'esdeveniment
      * @param poblacio la població de l'esdeveniment
      * @param aforament l'aforament màxim de l'esdeveniment
-     * @param horari l'horari de l'esdeveniment
+     * @param hora_inici l'hora d'inici de l'esdeveniment
+     * @param hora_fi l'hora final de l'esdeveniment
+     * @param data_esde la data de l'esdeveniment
      */
     public Event(String id, String nom, String descripcio, String organitzador, String direccio, String codiPostal,
-                 String poblacio, int aforament, String horari) {
+                 String poblacio, int aforament, String hora_inici, String hora_fi, String data_esde) {
         this.id = id;
         this.nom = nom;
         this.descripcio = descripcio;
@@ -79,7 +89,9 @@ public class Event {
         this.codiPostal = codiPostal;
         this.poblacio = poblacio;
         this.aforament = aforament;
-        this.horari = horari;
+        this.horaInici = hora_inici;
+        this.horaFi = hora_fi;
+        this.dataEsde = data_esde;
     }
 
     /**
@@ -227,23 +239,58 @@ public class Event {
     }
 
     /**
-     * Obté l'horari de l'esdeveniment.
+     * Obté l'hora d'inici de l'esdeveniment.
      *
-     * @return l'horari de l'esdeveniment
+     * @return l'hora d'inici de l'esdeveniment
      */
-    public String getHorari() {
-        return horari;
+    public String getHoraInici() {
+        return horaInici;
     }
 
     /**
-     * Estableix l'horari de l'esdeveniment.
+     * Estableix l'hora_inici de l'esdeveniment.
      *
-     * @param horari l'horari de l'esdeveniment
+     * @param hora_inici l'hora_inici de l'esdeveniment
      */
-    public void setHorari(String horari) {
-        this.horari = horari;
+    public void setHoraInici(String hora_inici) {
+        this.horaInici = hora_inici;
     }
 
+    /**
+     * Obté l'hora final de l'esdeveniment.
+     *
+     * @return l'hora final de l'esdeveniment
+     */
+    public String getHoraFi() {
+        return horaFi;
+    }
+
+    /**
+     * Estableix l'hora final de l'esdeveniment.
+     *
+     * @param hora_fi l'hora final de l'esdeveniment
+     */
+    public void setHoraFi(String hora_fi) {
+        this.horaFi = hora_fi;
+    }
+
+    /**
+     * Obté la data de l'esdeveniment.
+     *
+     * @return la data de l'esdeveniment
+     */
+    public String getDataEsde(String text) {
+        return dataEsde;
+    }
+
+    /**
+     * Estableix la data de l'esdeveniment.
+     *
+     * @param data_esde la data de l'esdeveniment
+     */
+    public void setDataEsde(String data_esde) {
+        this.dataEsde = data_esde;
+    }
 
     /**
      * Mètode toString per representar l'esdeveniment amb l'ID, nom i organitzador.
@@ -256,6 +303,8 @@ public class Event {
                 "id='" + id + '\'' +
                 ", nom='" + nom + '\'' +
                 ", organitzador='" + organitzador + '\'' +
+                ", hora d'inici='" + horaInici + '\'' +
+                ", data='" + dataEsde + '\'' +
                 '}';
     }
 }

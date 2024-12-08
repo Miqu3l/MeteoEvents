@@ -1,10 +1,14 @@
 package model.crud;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.encryption.CipherUtil;
 import model.tokenSingleton.TokenSingleton;
 import model.model.User;
 import utilities.URLRequests;
+
+import javax.crypto.SecretKey;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -41,6 +45,7 @@ public class CrudUser {
     private HttpResponse<String> response;
     private HttpRequest request;
     private String jwtToken;
+    private SecretKey secretKey;
 
     /**
      * Constructor per defecte que inicialitza l'HttpClient i recupera el token JWT
@@ -65,12 +70,15 @@ public class CrudUser {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonRequest = objectMapper.writeValueAsString(user);
+        String encryptedUser = CipherUtil.encrypt(jsonRequest);
+
+        System.out.println(encryptedUser);
 
         request = HttpRequest.newBuilder()
                 .uri(URI.create(URLRequests.USER_CREATE_URL))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
-                .POST(HttpRequest.BodyPublishers.ofString(jsonRequest, StandardCharsets.UTF_8))
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
+                .POST(HttpRequest.BodyPublishers.ofString(encryptedUser, StandardCharsets.UTF_8))
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -92,15 +100,16 @@ public class CrudUser {
         request = HttpRequest.newBuilder()
                 .uri(URI.create(URLRequests.USER_LIST_URL))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
                 .GET()
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
+            String decryptedUsers = CipherUtil.decrypt(response.body());
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(response.body(), new TypeReference<List<User>>() {});
+            return objectMapper.readValue(decryptedUsers, new TypeReference<List<User>>() {});
         } else {
             throw new RuntimeException("Error en la solicitud: " + response.statusCode());
         }
@@ -119,15 +128,18 @@ public class CrudUser {
         request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
                 .GET()
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
+            String decryptedUser = CipherUtil.decrypt(response.body());
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(response.body(), new TypeReference<User>() {});
+            JsonNode rootNode = objectMapper.readTree(decryptedUser);
+            JsonNode bodyNode = rootNode.get("body");
+            return objectMapper.treeToValue(bodyNode, User.class);
         } else {
             return null;
         }
@@ -142,15 +154,16 @@ public class CrudUser {
      */
     public String updateUser(User user) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        String requestBody = objectMapper.writeValueAsString(user);
+        String jsonRequest = objectMapper.writeValueAsString(user);
+        String encryptedUser = CipherUtil.encrypt(jsonRequest);
 
         String url = URLRequests.USER_CREATE_URL + "/" + user.getID();
 
         request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
-                .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
+                .PUT(HttpRequest.BodyPublishers.ofString(encryptedUser))
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -178,7 +191,7 @@ public class CrudUser {
 
         request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
-                .header("Authorization", "Bearer " + jwtToken)
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
                 .DELETE()
                 .build();
 

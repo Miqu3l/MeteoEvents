@@ -75,7 +75,7 @@ public class LoginController {
             }else{
                 setMessage(loginStatus);
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (Exception e) {
             setMessage("Servidor desconnectat");
         }
     }

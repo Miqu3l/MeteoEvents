@@ -32,6 +32,11 @@
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Label>
+                  <Button fx:id="btn_princ_estat_esd" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLEstatEsdevenimentButtonClick" style="-fx-background-color: BCFCFF;" text="Estat esdeveniments">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font>
+                  </Button>
                   <Button fx:id="btn_princ_nou_esd" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onNouEsdevenimentButtonClick" style="-fx-background-color: BCFCFF;" text="Nou esdeveniment">
                      <font>
                         <Font name="Roboto" size="12.0" />
@@ -47,7 +52,7 @@
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_princ_veure_esd" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" onAction="#onVeureEsdevenimentButtonClick" style="-fx-background-color: BCFCFF;" text="Veure esdeveniment">
+                  <Button fx:id="btn_princ_veure_esd" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="81.0" mnemonicParsing="false" onAction="#onVeureEsdevenimentButtonClick" style="-fx-background-color: BCFCFF;" text="Veure dades esdeveniment">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>
@@ -140,7 +145,7 @@
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btn_princ_previsio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onPrevisioButtonClick" style="-fx-background-color: BCFCFF;" text="Nova mesura de prevenció">
+                  <Button fx:id="btn_princ_previsio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onPrevisioButtonClick" style="-fx-background-color: BCFCFF;" text="Nova previsió meteorològica">
                      <font>
                         <Font name="Roboto" size="12.0" />
                      </font>

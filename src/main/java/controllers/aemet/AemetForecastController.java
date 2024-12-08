@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.aemet.AemetRequest;
 import model.aemet.AemetResponse;
@@ -31,40 +32,138 @@ public class AemetForecastController {
     private TextArea txt_weather_forecast;
 
     @FXML
+    private TextField txt_previsio_municipi;
+
+    @FXML
+    private TextField txt_previsio_data;
+
+    @FXML
+    private TextField txt_previsio_hora;
+
+    @FXML
     void onWeatherRequestButtonClick(ActionEvent event) throws Exception {
         //Dades recollides de la previsió
-        int windAverage;
-        int windMax;
-        int rainProbability;
+        int windAverage = 0;
+        int windMax = 0;
+        int rainProbability = 0;
         float rainAmount;
-        int stormProbability;
-        float snowAmount;
-        int snowProbability;
-        int temperature;
-        int thermalSens;
-        int relativeHumidity;
+        int stormProbability = 0;
+        float snowAmount = 0;
+        int snowProbability = 0;
+        int temperature = 0;
+        int thermalSens = 0;
+        int relativeHumidity = 0;
 
         //Nivell d'alerta
-        int rainAlert;
-        int snowAlert;
-        int windAverageAlert;
-        int windMaxAlert;
-        int temperatureHighAlert;
-        int temperatureLowAlert;
+        int rainAlert = 0;
+        int snowAlert = 0;
+        int windAverageAlert = 0;
+        int windMaxAlert = 0;
+        int temperatureHighAlert = 0;
+        int temperatureLowAlert = 0;
         String alertCondition;
+
+        boolean dataTrobada = false;
 
         AlertLevel alertLevel = new AlertLevel();
 
-        try {
-            //Declaración de variables con los datos de la petición a la Aemet.
-            String codiMunicipi = "25086";  //Código de la población de la Aemet
-            String dataBuscada = "2024-11-30T00:00:00"; //Fecha. (Previsión de 40 horas desde la fecha)
-            String horaBuscada = "02";      //Hora del dia. (Desde las 00 hasta las 23)
-            String periodeBuscat ="0107";   //Franja horario. (Entre las 0107, las 0713, las 1319 y las 1901)
-            //Si no encuentra la fecha
-            boolean dataTrobada = false;
+        String codiMunicipi = txt_previsio_municipi.getText();
+        String dataBuscada = txt_previsio_data.getText() + "T00:00:00";
+        String horaBuscada = txt_previsio_hora.getText();
+        String periodeBuscat = "";
+        switch (horaBuscada){
+            case "00":
+                periodeBuscat = "1901";
+                break;
+            case "01":
+                periodeBuscat = "0107";
+                break;
+            case "02":
+                periodeBuscat = "0107";
+                break;
+            case "03":
+                periodeBuscat = "0107";
+                break;
+            case "04":
+                periodeBuscat = "0107";
+                break;
+            case "05":
+                periodeBuscat = "0107";
+                break;
+            case "06":
+                periodeBuscat = "0107";
+                break;
+            case "07":
+                periodeBuscat = "0713";
+                break;
+            case "08":
+                periodeBuscat = "0713";
+                break;
+            case "09":
+                periodeBuscat = "0713";
+                break;
+            case "10":
+                periodeBuscat = "0713";
+                break;
+            case "11":
+                periodeBuscat = "0713";
+                break;
+            case "12":
+                periodeBuscat = "0713";
+                break;
+            case "13":
+                periodeBuscat = "1319";
+                break;
+            case "14":
+                periodeBuscat = "1319";
+                break;
+            case "15":
+                periodeBuscat = "1319";
+                break;
+            case "16":
+                periodeBuscat = "1319";
+                break;
+            case "17":
+                periodeBuscat = "1319";
+                break;
+            case "18":
+                periodeBuscat = "1319";
+                break;
+            case "19":
+                periodeBuscat = "1901";
+                break;
+            case "20":
+                periodeBuscat = "1901";
+                break;
+            case "21":
+                periodeBuscat = "1901";
+                break;
+            case "22":
+                periodeBuscat = "1901";
+                break;
+            case "23":
+                periodeBuscat = "1901";
+                break;
+        }
 
-            //Genera la petición a la Aemet i recibe la respuesta.
+        if(txt_previsio_municipi.getText().isEmpty()){
+            lbl_weather_response.setText("Has d'introduïr el codi del municipi correctament");
+            return;
+        }
+
+        if(txt_previsio_data.getText().isEmpty()){
+            lbl_weather_response.setText("Has d'introduïr la data correctament");
+            return;
+        }
+
+        if(txt_previsio_hora.getText().isEmpty()){
+            lbl_weather_response.setText("Has d'introduïr l'hora correctament");
+            return;
+        }
+
+        lbl_weather_response.setText("");
+
+        try {
             AemetRequest request = new AemetRequest();
             String response = request.aemetForecastRequest(codiMunicipi);
 
@@ -113,7 +212,7 @@ public class AemetForecastController {
                             for (AemetResponse.Prediccion.Dia.Probabilidad probabilitat : dia.getProbPrecipitacion()) {
                                 if (periodeBuscat.equals(probabilitat.getPeriodo())) {
                                     rainProbability = Integer.parseInt(probabilitat.getValue());
-                                    System.out.println("Probabilitat de pluja: " + probabilitat.getValue());
+                                    System.out.println("Probabilitat de pluja: " + rainProbability);
                                     System.out.println("---------------------------------------------------");
                                 }
                             }
@@ -137,7 +236,7 @@ public class AemetForecastController {
                             for (AemetResponse.Prediccion.Dia.ProbTormenta tempesta : dia.getProbTormenta()) {
                                 if (periodeBuscat.equals(tempesta.getPeriodo())){
                                     stormProbability = tempesta.getValue();
-                                    System.out.println("Probabilitat de tempesta: " + tempesta.getValue());
+                                    System.out.println("Probabilitat de tempesta: " + stormProbability);
                                     System.out.println("---------------------------------------------------");
                                 }
                             }
@@ -149,7 +248,7 @@ public class AemetForecastController {
                                 if (horaBuscada.equals(neu.getPeriodo())){
                                     snowAmount = Float.parseFloat(neu.getValue());
                                     snowAlert = alertLevel.checkSnow(snowAmount);
-                                    System.out.println("Neu: " + neu.getValue());
+                                    System.out.println("Neu: " + snowAmount);
                                     System.out.println("Nivell d'alerta per neu: " + snowAlert);
                                     System.out.println("---------------------------------------------------");
                                 }
@@ -161,7 +260,7 @@ public class AemetForecastController {
                             for (AemetResponse.Prediccion.Dia.probNieve probNeu : dia.getProbNieve()) {
                                 if (periodeBuscat.equals(probNeu.getPeriodo())){
                                     snowProbability = Integer.parseInt(probNeu.getValue());
-                                    System.out.println("Probabilitat de nevada: " + probNeu.getValue());
+                                    System.out.println("Probabilitat de nevada: " + snowProbability);
                                     System.out.println("---------------------------------------------------");
                                 }
                             }
@@ -174,7 +273,7 @@ public class AemetForecastController {
                                     temperature = Integer.parseInt(temperatura.getValue());
                                     temperatureHighAlert = alertLevel.checkHighTemperatureLevel(temperature);
                                     temperatureLowAlert = alertLevel.checkLowTemperatureLevel(temperature);
-                                    System.out.println("Temperatura: " + temperatura.getValue());
+                                    System.out.println("Temperatura: " + temperature);
                                     System.out.println("Nivell d'alerta per alta temperatura: " + temperatureHighAlert);
                                     System.out.println("Nivell d'alerta per baixa temperatura: " + temperatureLowAlert);
                                     System.out.println("---------------------------------------------------");
@@ -187,7 +286,7 @@ public class AemetForecastController {
                             for (AemetResponse.Prediccion.Dia.sensTermica sensTermica : dia.getSensTermica()) {
                                 if (horaBuscada.equals(sensTermica.getPeriodo())){
                                     thermalSens = Integer.parseInt(sensTermica.getValue());
-                                    System.out.println("Sensació tèrmica: " + sensTermica.getValue());
+                                    System.out.println("Sensació tèrmica: " + thermalSens);
                                     System.out.println("---------------------------------------------------");
                                 }
                             }
@@ -198,13 +297,32 @@ public class AemetForecastController {
                             for (AemetResponse.Prediccion.Dia.humedadRelativa humitatRelativa : dia.getHumedadRelativa()) {
                                 if (horaBuscada.equals(humitatRelativa.getPeriodo())){
                                     relativeHumidity = Integer.parseInt(humitatRelativa.getValue());
-                                    System.out.println("Humitat relativa: " + humitatRelativa.getValue());
+                                    System.out.println("Humitat relativa: " + relativeHumidity);
                                     System.out.println("---------------------------------------------------");
                                 }
                             }
                         }
+
+                        txt_weather_forecast.setText("Dades per la data: " + dataBuscada + "\n" +
+                                "---------------------------------------------------\n" +
+                                "Velocitat mitja de vent: " + windAverage + "\n" +
+                                "Nivell d'alerta per vent: " + windAverageAlert + "\n" +
+                                "Ratxa màxima de vent: " + windMax + "\n" +
+                                "Nivell d'alerta por ratxa màxima: " + windMaxAlert + "\n" +
+                                "Probabilitat de pluja: " + rainProbability + "\n" +
+                                "Nivell d'alerta per pluja: " + rainAlert + "\n" +
+                                "Probabilitat de tempesta: " + stormProbability + "\n" +
+                                "Neu: " + snowAmount + "\n" +
+                                "Nivell d'alerta per neu: " + snowAlert + "\n" +
+                                "Probabilitat de nevada: " + snowProbability + "\n" +
+                                "Temperatura: " + temperature + "\n" +
+                                "Nivell d'alerta per alta temperatura: " + temperatureHighAlert + "\n" +
+                                "Nivell d'alerta per baixa temperatura: " + temperatureLowAlert + "\n" +
+                                "Sensació tèrmica: " + thermalSens + "\n" +
+                                "Humitat relativa: " + relativeHumidity);
                     }
                 }
+
                 if (!dataTrobada) {
                     System.out.println("La previsió per aquesta data no està disponible");
                 }

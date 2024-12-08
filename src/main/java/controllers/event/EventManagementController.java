@@ -70,10 +70,22 @@ public class EventManagementController {
     private TextField txt_event_management_organizer;
 
     /**
-     * Camp de text per introduir o modificar l'hora de l'esdeveniment.
+     * Camp de text per introduir o modificar la data de l'esdeveniment.
      */
     @FXML
-    private TextField txt_event_management_time;
+    private TextField txt_event_management_date;
+
+    /**
+     * Camp de text per introduir o modificar l'hora final de l'esdeveniment.
+     */
+    @FXML
+    private TextField txt_event_management_endtime;
+
+    /**
+     * Camp de text per introduir o modificar l'hora inicial de l'esdeveniment.
+     */
+    @FXML
+    private TextField txt_event_management_initialtime;
 
     /**
      * Camp de text per introduir o modificar el codi postal de la ubicació de l'esdeveniment.
@@ -159,6 +171,11 @@ public class EventManagementController {
      * @param event L'esdeveniment que es vol visualitzar.
      */
     private void initializeEvent(Event event) {
+
+        System.out.println(event);
+        System.out.println(event.getCodiPostal());
+        System.out.println(event.getHoraFi());
+
         lbl_event_management_id.setText(event.getId());
         txt_event_management_name.setText(event.getNom());
         txt_event_management_description.setText(event.getDescripcio());
@@ -167,7 +184,9 @@ public class EventManagementController {
         txt_event_management_zipcode.setText(event.getCodiPostal());
         txt_event_management_city.setText(event.getPoblacio());
         txt_event_management_capacity.setText(String.valueOf(event.getAforament()));
-        txt_event_management_time.setText(event.getHorari());
+        txt_event_management_initialtime.setText(event.getHoraInici());
+        txt_event_management_endtime.setText(event.getHoraFi());
+        txt_event_management_date.setText(event.getDataEsde(txt_event_management_date.getText()));
     }
 
     /**
@@ -182,7 +201,9 @@ public class EventManagementController {
         txt_event_management_zipcode.setText("");
         txt_event_management_city.setText("");
         txt_event_management_capacity.setText("");
-        txt_event_management_time.setText("");
+        txt_event_management_initialtime.setText("");
+        txt_event_management_endtime.setText("");
+        txt_event_management_date.setText("");
     }
 
     /**
@@ -200,6 +221,8 @@ public class EventManagementController {
         }else{
             event.setAforament(Integer.parseInt(txt_event_management_capacity.getText()));
         }
-        event.setHorari(txt_event_management_time.getText());
+        event.setHoraInici(txt_event_management_initialtime.getText());
+        event.setHoraFi(txt_event_management_endtime.getText());
+        event.setDataEsde(txt_event_management_date.getText());
     }
 }

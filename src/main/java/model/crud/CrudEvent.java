@@ -1,7 +1,9 @@
 package model.crud;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.encryption.CipherUtil;
 import model.tokenSingleton.TokenSingleton;
 import model.model.Event;
 import utilities.URLRequests;
@@ -63,12 +65,13 @@ public class CrudEvent {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonRequest = objectMapper.writeValueAsString(event);
+        String encryptedEvent = CipherUtil.encrypt(jsonRequest);
 
         request = HttpRequest.newBuilder()
                 .uri(URI.create(URLRequests.EVENT_CREATE_URL))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
-                .POST(HttpRequest.BodyPublishers.ofString(jsonRequest, StandardCharsets.UTF_8))
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
+                .POST(HttpRequest.BodyPublishers.ofString(encryptedEvent, StandardCharsets.UTF_8))
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -90,15 +93,16 @@ public class CrudEvent {
         request = HttpRequest.newBuilder()
                 .uri(URI.create(URLRequests.EVENT_LIST_URL))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
                 .GET()
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
+            String decryptedEvent = CipherUtil.decrypt(response.body());
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(response.body(), new TypeReference<List<Event>>() {});
+            return objectMapper.readValue(decryptedEvent, new TypeReference<List<Event>>() {});
         } else {
             throw new RuntimeException("Error en la solicitud: " + response.statusCode());
         }
@@ -117,15 +121,18 @@ public class CrudEvent {
         request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
                 .GET()
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
+            String decryptedEvent = CipherUtil.decrypt(response.body());
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(response.body(), Event.class);
+            JsonNode rootNode = objectMapper.readTree(decryptedEvent);
+            JsonNode bodyNode = rootNode.get("body");
+            return objectMapper.treeToValue(bodyNode, Event.class);
         } else {
             return null;
         }
@@ -141,14 +148,15 @@ public class CrudEvent {
     public String updateEvent(Event event) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(event);
+        String encryptedRequest = CipherUtil.encrypt(requestBody);
 
         String url = URLRequests.EVENT_CREATE_URL + "/" + event.getId();
 
         request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + jwtToken)
-                .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
+                .PUT(HttpRequest.BodyPublishers.ofString(encryptedRequest))
                 .build();
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -176,7 +184,7 @@ public class CrudEvent {
 
         request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
-                .header("Authorization", "Bearer " + jwtToken)
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
                 .DELETE()
                 .build();
 

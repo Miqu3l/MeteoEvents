@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.model.User;
 import model.crud.CrudUser;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

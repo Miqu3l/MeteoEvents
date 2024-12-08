@@ -35,6 +35,10 @@ public class Measure {
     @JsonProperty("accio")
     private String accio;
 
+    /** Acció associada al nivell de risc de la mesura */
+    @JsonProperty("nivell_mesura")
+    private String nivell_mesura;
+
     /** Constructor per defecte */
     public Measure() {
     }
@@ -48,12 +52,13 @@ public class Measure {
      * @param valorUm la unitat de mesura
      * @param accio l'acció associada a la mesura
      */
-    public Measure(String id, String condicio, double valor, String valorUm, String accio) {
+    public Measure(String id, String condicio, double valor, String valorUm, String accio, String nivellMesura) {
         this.id = id;
         this.condicio = condicio;
         this.valor = valor;
         this.valorUm = valorUm;
         this.accio = accio;
+        this.nivell_mesura = nivellMesura;
     }
 
     /**
@@ -147,6 +152,24 @@ public class Measure {
     }
 
     /**
+     * Retorna el nivell d'alerta associat a la mesura.
+     *
+     * @return l'acció de la mesura
+     */
+    public String getNivell_mesura() {
+        return nivell_mesura;
+    }
+
+    /**
+     * Assigna el nivell d'alerta de la mesura.
+     *
+     * @param nivell_mesura la nova acció de la mesura
+     */
+    public void setNivell_mesura(String nivell_mesura) {
+        this.nivell_mesura = nivell_mesura;
+    }
+
+    /**
      * Mètode toString per representar la mesura amb l'ID, condició, valor i acció.
      *
      * @return una representació en cadena de la mesura
@@ -159,6 +182,7 @@ public class Measure {
                 ", valor=" + valor +
                 ", valorUm='" + valorUm + '\'' +
                 ", accio='" + accio + '\'' +
+                ", nivell alerta='" + nivell_mesura + '\'' +
                 '}';
     }
 }

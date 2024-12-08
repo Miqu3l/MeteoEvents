@@ -61,7 +61,7 @@ class LoginClientTest {
      * @throws InterruptedException si el fil es veu interromput
      */
     @Test
-    void testAdminLoginSuccessfull() throws IOException, InterruptedException {
+    void testAdminLoginSuccessfull() throws Exception {
         when(mockResponse.statusCode()).thenReturn(200);
         when(mockResponse.body()).thenReturn(responseBodyAdmin);
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
@@ -82,7 +82,7 @@ class LoginClientTest {
      * @throws InterruptedException si el fil es veu interromput
      */
     @Test
-    void testStandardLoginSuccessfull() throws IOException, InterruptedException {
+    void testStandardLoginSuccessfull() throws Exception {
         when(mockResponse.statusCode()).thenReturn(200);
         when(mockResponse.body()).thenReturn(responseBodyStandard);
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
@@ -103,7 +103,7 @@ class LoginClientTest {
      * @throws InterruptedException si el fil es veu interromput
      */
     @Test
-    public void incorrectCredentialsTest() throws IOException, InterruptedException {
+    public void incorrectCredentialsTest() throws Exception {
         when(mockResponse.statusCode()).thenReturn(401);
         when(mockResponse.body()).thenReturn(responseBodyAdmin);
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
@@ -123,7 +123,7 @@ class LoginClientTest {
      * @throws InterruptedException si el fil es veu interromput
      */
     @Test
-    public void testErrorServer() throws IOException, InterruptedException {
+    public void testErrorServer() throws Exception {
         when(mockResponse.statusCode()).thenReturn(500);
         when(mockResponse.body()).thenReturn(responseBodyAdmin);
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
@@ -143,7 +143,7 @@ class LoginClientTest {
      * @throws InterruptedException si el fil es veu interromput
      */
     @Test
-    public void testAccesDenied() throws IOException, InterruptedException {
+    public void testAccesDenied() throws Exception {
         when(mockResponse.statusCode()).thenReturn(403);
         when(mockResponse.body()).thenReturn(responseBodyAdmin);
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
@@ -171,7 +171,7 @@ class LoginClientTest {
             String result = loginClient.loginUsuari(VALID_ADMIN_USERNAME, VALID_ADMIN_PASSWORD);
             assertTrue(result.contains(SIMULATED_EXCEPTION));
             assertNull(loginClient.getJwtToken());
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -193,7 +193,7 @@ class LoginClientTest {
             String result = loginClient.loginUsuari(VALID_ADMIN_USERNAME, VALID_ADMIN_PASSWORD);
             assertTrue(result.contains(SIMULATED_EXCEPTION));
             assertNull(loginClient.getJwtToken());
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
