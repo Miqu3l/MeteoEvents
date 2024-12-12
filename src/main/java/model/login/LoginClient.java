@@ -17,6 +17,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Base64;
 
 /**
@@ -78,13 +79,18 @@ public class LoginClient {
      *                              mentre espera la resposta del servidor.
      */
     public String loginUsuari(String nomUsuari, String contrasenya) throws Exception {
+        //Encripta el nom d'usuarinomEncripta
+        String encriptedName = CipherUtil.encrypt(nomUsuari);
+        String Base64Name = Base64.getEncoder().encodeToString(encriptedName.getBytes());
+
         // Encripta la contrasenya i la codifica amb Base64
-        String contrasenyaEncriptada = CipherUtil.encrypt(contrasenya);
-        String contrasenyaBase64 = Base64.getEncoder().encodeToString(contrasenyaEncriptada.getBytes());
+        contrasenya = contrasenya + "|" + Instant.now();
+        String encryptedPassword = CipherUtil.encrypt(contrasenya);
+        String Base64Password = Base64.getEncoder().encodeToString(encryptedPassword.getBytes());
 
         // Codifica els paràmetre per obtindre una URL correcta en cas de trobar algun caràcter especial
-        String params = "nomUsuari=" + URLEncoder.encode(nomUsuari, StandardCharsets.UTF_8)
-                + "&contrasenya=" + contrasenyaBase64;
+        String params = "nomUsuari=" + URLEncoder.encode(Base64Name, StandardCharsets.UTF_8)
+                + "&contrasenya=" + Base64Password;
 
         // Crea la petició HTTP POST
         HttpRequest request = HttpRequest.newBuilder()

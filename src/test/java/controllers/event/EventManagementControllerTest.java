@@ -21,7 +21,7 @@ public class EventManagementControllerTest {
     private LoginClient loginClient;
     private List<Event> list;
 
-    private Event eventTest = new Event(
+    private Event eventTest = adminnew Event(
             "99999",
             "Concert Extremoduro",
             "Concert de despedida.",

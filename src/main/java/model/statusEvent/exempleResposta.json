@@ -1,0 +1,143 @@
+{
+  "Usuaris participants" : [ "admin", "mvinyals" ],
+  "2024-12-09T08" : {
+    "VelocitatMitjaVent" : 5,
+    "AlertaVentMitja" : 1,
+    "RatxaMaximaVent" : 7,
+    "AlertaRatxaMaxima" : 1,
+    "ProbabilitatPluja" : 0,
+    "Precipitacio" : 0.0,
+    "AlertaPluja" : 1,
+    "MesuresPrecipitacio" : {
+      "Accio1" : "informació i comunicació als usuaris, revisió desguassos i embornals"
+    },
+    "ProbabilitatTempesta" : 0,
+    "Neu" : 0.0,
+    "AlertaNeu" : 1,
+    "ProbabilitatNevada" : 0,
+    "Temperatura" : 2,
+    "AlertaAltaTemperatura" : -1,
+    "AlertaBaixaTemperatura" : 2,
+    "HumitatRelativa" : 83
+  },
+  "2024-12-09T09" : {
+    "VelocitatMitjaVent" : 4,
+    "AlertaVentMitja" : 1,
+    "RatxaMaximaVent" : 3,
+    "AlertaRatxaMaxima" : 1,
+    "ProbabilitatPluja" : 0,
+    "Precipitacio" : 0.0,
+    "AlertaPluja" : 1,
+    "MesuresPrecipitacio" : {
+      "Accio1" : "informació i comunicació als usuaris, revisió desguassos i embornals"
+    },
+    "ProbabilitatTempesta" : 0,
+    "Neu" : 0.0,
+    "AlertaNeu" : 1,
+    "ProbabilitatNevada" : 0,
+    "Temperatura" : 3,
+    "AlertaAltaTemperatura" : -1,
+    "AlertaBaixaTemperatura" : 2,
+    "HumitatRelativa" : 73
+  },
+  "2024-12-09T10" : {
+    "VelocitatMitjaVent" : 1,
+    "AlertaVentMitja" : 1,
+    "RatxaMaximaVent" : 4,
+    "AlertaRatxaMaxima" : 1,
+    "ProbabilitatPluja" : 40,
+    "Precipitacio" : 0.0,
+    "AlertaPluja" : 1,
+    "MesuresPrecipitacio" : {
+      "Accio1" : "informació i comunicació als usuaris, revisió desguassos i embornals"
+    },
+    "ProbabilitatTempesta" : 35,
+    "Neu" : 0.0,
+    "AlertaNeu" : 1,
+    "ProbabilitatNevada" : 0,
+    "Temperatura" : 5,
+    "AlertaAltaTemperatura" : -1,
+    "AlertaBaixaTemperatura" : 2,
+    "HumitatRelativa" : 68
+  },
+  "2024-12-09T11" : {
+    "VelocitatMitjaVent" : 2,
+    "AlertaVentMitja" : 1,
+    "RatxaMaximaVent" : 10,
+    "AlertaRatxaMaxima" : 1,
+    "ProbabilitatPluja" : 40,
+    "Precipitacio" : 0.0,
+    "AlertaPluja" : 1,
+    "MesuresPrecipitacio" : {
+      "Accio1" : "informació i comunicació als usuaris, revisió desguassos i embornals"
+    },
+    "ProbabilitatTempesta" : 35,
+    "Neu" : 0.0,
+    "AlertaNeu" : 1,
+    "ProbabilitatNevada" : 0,
+    "Temperatura" : 7,
+    "AlertaAltaTemperatura" : 1,
+    "AlertaBaixaTemperatura" : 1,
+    "HumitatRelativa" : 60
+  },
+  "2024-12-09T12" : {
+    "VelocitatMitjaVent" : 5,
+    "AlertaVentMitja" : 1,
+    "RatxaMaximaVent" : 10,
+    "AlertaRatxaMaxima" : 1,
+    "ProbabilitatPluja" : 40,
+    "Precipitacio" : 0.0,
+    "AlertaPluja" : 1,
+    "MesuresPrecipitacio" : {
+      "Accio1" : "informació i comunicació als usuaris, revisió desguassos i embornals"
+    },
+    "ProbabilitatTempesta" : 35,
+    "Neu" : 0.0,
+    "AlertaNeu" : 1,
+    "ProbabilitatNevada" : 0,
+    "Temperatura" : 10,
+    "AlertaAltaTemperatura" : 1,
+    "AlertaBaixaTemperatura" : 1,
+    "HumitatRelativa" : 49
+  },
+  "2024-12-09T13" : {
+    "VelocitatMitjaVent" : 5,
+    "AlertaVentMitja" : 1,
+    "RatxaMaximaVent" : 6,
+    "AlertaRatxaMaxima" : 1,
+    "ProbabilitatPluja" : 40,
+    "Precipitacio" : 0.0,
+    "AlertaPluja" : 1,
+    "MesuresPrecipitacio" : {
+      "Accio1" : "informació i comunicació als usuaris, revisió desguassos i embornals"
+    },
+    "ProbabilitatTempesta" : 35,
+    "Neu" : 0.0,
+    "AlertaNeu" : 1,
+    "ProbabilitatNevada" : 0,
+    "Temperatura" : 13,
+    "AlertaAltaTemperatura" : 1,
+    "AlertaBaixaTemperatura" : 1,
+    "HumitatRelativa" : 40
+  },
+  "2024-12-09T14" : {
+    "VelocitatMitjaVent" : 3,
+    "AlertaVentMitja" : 1,
+    "RatxaMaximaVent" : 15,
+    "AlertaRatxaMaxima" : 1,
+    "ProbabilitatPluja" : 40,
+    "Precipitacio" : 0.0,
+    "AlertaPluja" : 1,
+    "MesuresPrecipitacio" : {
+      "Accio1" : "informació i comunicació als usuaris, revisió desguassos i embornals"
+    },
+    "ProbabilitatTempesta" : 35,
+    "Neu" : 0.0,
+    "AlertaNeu" : 1,
+    "ProbabilitatNevada" : 0,
+    "Temperatura" : 12,
+    "AlertaAltaTemperatura" : 1,
+    "AlertaBaixaTemperatura" : 1,
+    "HumitatRelativa" : 47
+  }
+}

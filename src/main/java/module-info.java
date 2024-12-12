@@ -22,6 +22,9 @@ module org.meteoevents.meteoevents {
     exports controllers.aemet;
     opens controllers.aemet to javafx.fxml;
 
+    opens model.statusEvent to com.fasterxml.jackson.databind;
+    exports model.statusEvent;
+
     exports model.aemet;
     exports controllers.login;
     opens controllers.login to javafx.fxml;

@@ -106,8 +106,7 @@ public class PrincipalController {
      * @param event L'esdeveniment del botó.
      */
     @FXML
-    void onLEstatEsdevenimentButtonClick(ActionEvent event) {
-        // TODO
+    void onLEstatEsdevenimentButtonClick(ActionEvent event) {loadPanel(PathsViews.EVENT_STATUS_VIEW);
     }
 
     /**

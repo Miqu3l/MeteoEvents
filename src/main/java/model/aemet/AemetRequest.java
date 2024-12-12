@@ -10,14 +10,17 @@ import java.net.http.HttpResponse;
 /**
  * Classe que permet fer sol·licituds a l'API d'AEMET per obtenir prediccions horàries
  * de municipis específics.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 public class AemetRequest {
 
     private static final String URL = "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/";
-    private static final String AEMET_TOKEN = "/?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtcmdhcnJpZ2FAZ21haWwuY29tIiwianRpIjoiZDEwMT" +
-            "MyNGEtNTE4ZC00OTQ4LTk2NzYtYTBiYjBhMjU5OTZjIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE3MjU0NzE1NTksInVzZXJJZCI6" +
-            "ImQxMDEzMjRhLTUxOGQtNDk0OC05Njc2LWEwYmIwYTI1OTk2YyIsInJvbGUiOiIifQ.MeI-InPKbLkkDibtj4KWpT8V-Tz3eoz" +
-            "Zfn3CwiquLdQ";
+    private static final String AEMET_TOKEN = "/?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtcmdhcnJpZ2FAZ21haWwuY29t" +
+            "IiwianRpIjoiNGI5NTljNTktNTJhMS00NDE1LTk5ZGEtZjY2ZTNiNGI2ZDAxIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE3MzM5MzA0O" +
+            "TUsInVzZXJJZCI6IjRiOTU5YzU5LTUyYTEtNDQxNS05OWRhLWY2NmUzYjRiNmQwMSIsInJvbGUiOiIifQ.2kzhhHwQVc2f0TNBOb7" +
+            "CnjMx5z7tsNdxxAzI9SY75C4";
 
     private HttpClient httpClient;
     private HttpResponse<String> response;
@@ -38,7 +41,7 @@ public class AemetRequest {
      * @return Una cadena amb les dades de la predicció en format JSON o retorna un missatge d'error.
      * @throws Exception Si es produeix algun error durant la sol·licitud o el processament.
      */
-    public String aemetForecastRequest(String codiMunicipi) throws Exception {
+    public String aemetForecastRequest(String codiMunicipi) throws Exception{
         request = HttpRequest.newBuilder()
                 .uri(URI.create(URL + codiMunicipi + AEMET_TOKEN))
                 .GET()
@@ -47,10 +50,10 @@ public class AemetRequest {
 
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        if (response.statusCode() == 200) { // Verificar si la resposta inicial és correcta
+        if(response.statusCode()==200){
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(response.body());
-            String data = jsonNode.get("datos").asText(); // Obtenir l'URL de les dades reals
+            String data = jsonNode.get("datos").asText();
 
             request = HttpRequest.newBuilder()
                     .uri(URI.create(data))
@@ -60,12 +63,12 @@ public class AemetRequest {
 
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            if (response.statusCode() == 200) {
+            if(response.statusCode()==200){
                 return response.body();
-            } else {
+            }else{
                 return "Error en la resposta de la Aemet";
             }
-        } else {
+        }else{
             return "Error en la resposta de la Aemet";
         }
     }

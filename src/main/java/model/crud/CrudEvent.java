@@ -198,6 +198,35 @@ public class CrudEvent {
     }
 
     /**
+     * Obté la informació de l'estat d'un esdeveniment pel seu ID.
+     *
+     * @param id L'identificador de l'esdeveniment.
+     * @return L'estat d'un esdeveniment o un missatge d'error al generar la petició per falta de previsió en la
+     * data de l'esdeveniment. Només hi ha previsió meteorològica dos dies abans de l'esdeveniment.
+     * @throws Exception Si es produeix un error en l'enviament de la petició HTTP.
+     */
+    public String getStatusById(String id) throws Exception {
+        String url = URLRequests.EVENT_STATUS_URL.replace("{id}", id);
+
+        request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + CipherUtil.encrypt(jwtToken))
+                .GET()
+                .build();
+
+        response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 200) {
+            //String decryptedStatus = CipherUtil.decrypt(response.body());
+           //return decryptedStatus;
+            return response.body();
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Retorna un missatge en funció del codi d'estat rebut del servidor.
      *
      * @param statusCode El codi d'estat de la resposta HTTP.

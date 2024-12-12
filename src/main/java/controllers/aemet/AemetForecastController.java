@@ -15,55 +15,82 @@ import model.aemet.AlertLevel;
 
 import java.util.List;
 
+/**
+ * Classe controladora per gestionar les peticions de previsió meteorològica a l'Aemet.
+ * Aquesta classe recull la informació d'entrada de l'usuari, realitza la petició a l'Aemet,
+ * processa la resposta i mostra els resultats.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
+ */
 public class AemetForecastController {
 
+    /** Missatge d'error per a respostes incorrectes de l'Aemet. */
     private static final String AEMET_ERROR = "Error en la resposta de la Aemet";
+    private static final String TOWN_ERROR = "El municipi introduït no existeix";
+    private static final String DATE_ERROR = "La previsió per aquesta data no està disponible";
 
+    /** Contenidor principal de l'escena. */
     @FXML
     private AnchorPane anch_forecast;
 
+    /** Botó per sol·licitar la previsió meteorològica. */
     @FXML
     private Button btn_weather_request;
 
+    /** Etiqueta per mostrar el resultat de la previsió o missatges d'error. */
     @FXML
     private Label lbl_weather_response;
 
+    /** Àrea de text per mostrar els resultats de la previsió meteorològica. */
     @FXML
     private TextArea txt_weather_forecast;
 
+    /** Camp de text per introduir el codi del municipi. */
     @FXML
     private TextField txt_previsio_municipi;
 
+    /** Camp de text per introduir la data de la previsió. */
     @FXML
     private TextField txt_previsio_data;
 
+    /** Camp de text per introduir l'hora de la previsió. */
     @FXML
     private TextField txt_previsio_hora;
 
+    // Variables per emmagatzemar dades de la previsió
+    private int windAverage = 0;
+    private int windMax = 0;
+    private int rainProbability = 0;
+    private float rainAmount;
+    private int stormProbability = 0;
+    private float snowAmount = 0;
+    private int snowProbability = 0;
+    private int temperature = 0;
+    private int thermalSens = 0;
+    private int relativeHumidity = 0;
+
+    // Variables per emmagatzemar nivells d'alerta
+    private int rainAlert = 0;
+    private int snowAlert = 0;
+    private int windAverageAlert = 0;
+    private int windMaxAlert = 0;
+    private int temperatureHighAlert = 0;
+    private int temperatureLowAlert = 0;
+    private String alertCondition = "";
+
+    /**
+     * Gestiona l'esdeveniment del clic al botó de sol·licitud de previsió meteorològica.
+     * Aquest mètode valida les dades d'entrada, fa una petició a l'Aemet,
+     * processa la resposta i actualitza la interfície gràfica amb els resultats.
+     *
+     * @param event Esdeveniment associat al clic del botó.
+     * @throws Exception Si ocorre un error durant la petició o el processament de dades.
+     */
     @FXML
     void onWeatherRequestButtonClick(ActionEvent event) throws Exception {
-        //Dades recollides de la previsió
-        int windAverage = 0;
-        int windMax = 0;
-        int rainProbability = 0;
-        float rainAmount;
-        int stormProbability = 0;
-        float snowAmount = 0;
-        int snowProbability = 0;
-        int temperature = 0;
-        int thermalSens = 0;
-        int relativeHumidity = 0;
-
-        //Nivell d'alerta
-        int rainAlert = 0;
-        int snowAlert = 0;
-        int windAverageAlert = 0;
-        int windMaxAlert = 0;
-        int temperatureHighAlert = 0;
-        int temperatureLowAlert = 0;
-        String alertCondition;
-
         boolean dataTrobada = false;
+        txt_weather_forecast.setText("");
 
         AlertLevel alertLevel = new AlertLevel();
 
@@ -71,76 +98,39 @@ public class AemetForecastController {
         String dataBuscada = txt_previsio_data.getText() + "T00:00:00";
         String horaBuscada = txt_previsio_hora.getText();
         String periodeBuscat = "";
+
         switch (horaBuscada){
             case "00":
                 periodeBuscat = "1901";
                 break;
             case "01":
-                periodeBuscat = "0107";
-                break;
             case "02":
-                periodeBuscat = "0107";
-                break;
             case "03":
-                periodeBuscat = "0107";
-                break;
             case "04":
-                periodeBuscat = "0107";
-                break;
             case "05":
-                periodeBuscat = "0107";
-                break;
             case "06":
                 periodeBuscat = "0107";
                 break;
             case "07":
-                periodeBuscat = "0713";
-                break;
             case "08":
-                periodeBuscat = "0713";
-                break;
             case "09":
-                periodeBuscat = "0713";
-                break;
             case "10":
-                periodeBuscat = "0713";
-                break;
             case "11":
-                periodeBuscat = "0713";
-                break;
             case "12":
                 periodeBuscat = "0713";
                 break;
             case "13":
-                periodeBuscat = "1319";
-                break;
             case "14":
-                periodeBuscat = "1319";
-                break;
             case "15":
-                periodeBuscat = "1319";
-                break;
             case "16":
-                periodeBuscat = "1319";
-                break;
             case "17":
-                periodeBuscat = "1319";
-                break;
             case "18":
                 periodeBuscat = "1319";
                 break;
             case "19":
-                periodeBuscat = "1901";
-                break;
             case "20":
-                periodeBuscat = "1901";
-                break;
             case "21":
-                periodeBuscat = "1901";
-                break;
             case "22":
-                periodeBuscat = "1901";
-                break;
             case "23":
                 periodeBuscat = "1901";
                 break;
@@ -167,7 +157,12 @@ public class AemetForecastController {
             AemetRequest request = new AemetRequest();
             String response = request.aemetForecastRequest(codiMunicipi);
 
-            //Comprueba si la respuesta es correcta.
+            if(response.equals("Error: El código de municipio no es válido o no hay datos disponibles.")){
+                lbl_weather_response.setText(TOWN_ERROR);
+                return;
+            }
+
+            //Comprova si la resposta és correcte.
             if (!AEMET_ERROR.equals(response)) {
                 //Crea un objeto para convertir la respuesta en un objeto AemetResponse.
                 //En este caso, en una lista de objetos, ya que así es el formato de la respuesta de la Aemet
@@ -223,8 +218,13 @@ public class AemetForecastController {
                             for (AemetResponse.Prediccion.Dia.Precipitacion precipitacio : dia.getPrecipitacion()) {
                                 if(horaBuscada.equals(precipitacio.getPeriodo())){
                                     System.out.println("Precipitació: " + precipitacio.getValue());
-                                    rainAmount = Float.parseFloat(precipitacio.getValue());
-                                    rainAlert = alertLevel.checkRain(rainAmount);
+                                    if(precipitacio.getValue().equals("Ip")){
+                                        rainAmount = 0;
+                                        rainAlert = alertLevel.checkRain(rainAmount);
+                                    }else{
+                                        rainAmount = Float.parseFloat(precipitacio.getValue());
+                                        rainAlert = alertLevel.checkRain(rainAmount);
+                                    }
                                     System.out.println("Nivell d'alerta per pluja: " + rainAlert);
                                     System.out.println("---------------------------------------------------");
                                 }
@@ -322,9 +322,8 @@ public class AemetForecastController {
                                 "Humitat relativa: " + relativeHumidity);
                     }
                 }
-
                 if (!dataTrobada) {
-                    System.out.println("La previsió per aquesta data no està disponible");
+                    lbl_weather_response.setText(DATE_ERROR);
                 }
             } else {
                 System.out.println(response);

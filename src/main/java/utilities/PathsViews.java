@@ -84,6 +84,12 @@ public class PathsViews {
     public static final String EVENT_SEARCH_VIEW = "/org/meteoevents/meteoevents/event/event-search-view.fxml";
 
     /**
+     * Ruta a la vista de cerca d'un esdeveniment per visualitzar el seu estat (user-status-view.fxml).
+     * Vista utilitzada per mostrar la informació de l'estat d'un esdeveniment de la base de dades.
+     */
+    public static final String EVENT_STATUS_VIEW = "/org/meteoevents/meteoevents/event/event-status-view.fxml";
+
+    /**
      * Ruta a la vista per demanar i visualitzar una previsió meteorològica per municipi a l'Aemet.
      * Vista utilitzada per demanar la previsió meteorològica a l'Aemet.
      */

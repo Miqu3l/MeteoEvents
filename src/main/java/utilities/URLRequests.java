@@ -86,6 +86,12 @@ public class URLRequests {
      */
     public static final String EVENT_UPDATE_URL = "http://localhost:8080/api/esdeveniments/{id}";
 
+    /**
+     * URL per a la petició de visualitzar l'estat d'un esdeveniment pel seu identificador.
+     * Envia una sol·licitud al servidor perquè retorni l'estat d'un esdeveniment.
+     */
+    public static final String EVENT_STATUS_URL = "http://localhost:8080/api/esdeveniments/{id}/meteo";
+
     //MEASURES
 
     /**

@@ -3,6 +3,9 @@ package model.aemet;
 /**
  * Classe per seleccionar els nivells d'alerta meteorològica en funció de les dades declarades
  * com a aconstants.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 public class AlertLevel {
 

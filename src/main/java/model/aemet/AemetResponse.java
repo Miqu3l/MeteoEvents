@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * Classe POJO que serveix per deserialitzar la resposta obtinguda per l'AEMET en format Json.
  * Conté diferents classes internes per poder adaptar-se al format de resposta de l'AEMET.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AemetResponse {
