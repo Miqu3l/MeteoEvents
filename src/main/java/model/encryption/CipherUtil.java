@@ -10,14 +10,14 @@ import java.util.Base64;
  * Aquesta implementació utilitza l'algoritme AES per protegir les dades sensibles,
  * com les contrasenyes.
  *
- * @author Chat-GPT. Prompt: Construeix classe unitaria per xifrar i desxifrar utilitzant Cipher
+ * @author Robert Hospital - Chat-GPT. Prompt: Construeix classe unitaria per xifrar i
+ * desxifrar utilitzant Cipher
  */
 public class CipherUtil {
     private static final String ALGORITHM = "AES"; // Algoritme de xifrat
     private static final byte[] SECRET_KEY = "MeteoEventsSecrt".getBytes(); // Clau de 16 bytes
     private static final String ENCRYPTION_PREFIX = "ENC_"; // Prefix per identificar dades xifrades
 
-    // Constructor
     private CipherUtil() {}
 
     /**

@@ -17,7 +17,7 @@
 
    <ImageView fx:id="img_log_logo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@../../../Pictures/meteoevents-high-resolution-logo-transparent.png" />
+         <Image url="@../../../../Pictures/meteoevents-high-resolution-logo-transparent.png" />
       </image>
    </ImageView>
 

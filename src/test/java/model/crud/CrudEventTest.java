@@ -1,5 +1,6 @@
 package model.crud;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.model.Event;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,8 @@ public class CrudEventTest {
     /** Versió mock de CrudEvent per a simular les respostes del servidor. */
     private CrudEvent mockedCrudEvent;
 
+    String mockJsonResponse;
+
     /**
      * Inicialització abans de cada prova.
      * Aquí es crea l'objecte de la classe CrudEvent mockejada i un esdeveniment de prova.
@@ -40,10 +43,25 @@ public class CrudEventTest {
                 "43700", // Codi postal
                 "El Vendrell", // Població
                 1500, // Nombre de participants
-                "2024-05-26 09:00" // Horari
-        );
+                "09:00", // Horari
+                "13:00",
+                "2024-12-17");
 
-        crudEvent = mockedCrudEvent;
+        mockJsonResponse = "{"
+                + "\"id\":\"99999\","
+                + "\"name\":\"Concert Extremoduro\","
+                + "\"description\":\"Concert de despedida.\","
+                + "\"organizer\":\"Rock Produccions\","
+                + "\"venue\":\"Palau Sant Jordi\","
+                + "\"postalCode\":\"08007\","
+                + "\"city\":\"Barcelona\","
+                + "\"capacity\":15000,"
+                + "\"startTime\":\"20:00\","
+                + "\"endTime\":\"22:00\","
+                + "\"date\":\"2024-12-17\""
+                + "}";
+
+                crudEvent = mockedCrudEvent;
     }
 
     /**
@@ -137,6 +155,26 @@ public class CrudEventTest {
             assertNull(deletedEvent, "L'esdeveniment hauria de ser null després de ser esborrat");
         } catch (Exception e) {
             fail("Excepció inesperada al esborrar esdeveniment: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Prova per verificar la resposta en format Json de l'estat d'un esdeveniment per la seva ID.
+     * S'utilitza Mockito per simular la resposta de l'estat d'un esdeveniment específic.
+     */
+    @Test
+    public void testGetStatusById() {
+        try {
+            when(mockedCrudEvent.getStatusById(testEvent.getId())).thenReturn(mockJsonResponse);
+
+            String result = crudEvent.getStatusById(testEvent.getId());
+
+            assertNotNull(result, "La resposta no hauria de ser null");
+            ObjectMapper objectMapper = new ObjectMapper();
+            assertDoesNotThrow(() -> objectMapper.readTree(result),
+                    "La resposta ha de ser un JSON vàlid");
+        } catch (Exception e) {
+            fail("Excepció inesperada al obtenir esdeveniment per ID: " + e.getMessage());
         }
     }
 }

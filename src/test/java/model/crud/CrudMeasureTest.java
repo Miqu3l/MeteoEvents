@@ -36,8 +36,8 @@ public class CrudMeasureTest {
                 "Calor extrem", // Nom de la mesura
                 35.0, // Valor de la mesura
                 "Celsius", // Unitat de mesura
-                "Suspensió del esdeveniment" // Descripció
-        );
+                "Suspensió del esdeveniment", // Descripció,
+                "5");
 
         crudMeasure = mockedCrudMeasure;
     }

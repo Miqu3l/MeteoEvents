@@ -1,12 +1,15 @@
-package model;
+package model.login;
 
-import model.login.LoginClient;
+import model.encryption.CipherUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Instant;
+import java.util.Base64;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,12 +47,12 @@ class LoginClientTest {
      * resposta del servidor a totes les proves.
      */
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         mockHttpClient = mock(HttpClient.class);
         loginClient = new LoginClient(mockHttpClient);
         mockResponse = mock(HttpResponse.class);
-        responseBodyAdmin = "{\"token\": \"testToken\", \"funcionalId\": \"ADM\", \"usuariId\": \"testUserId\"}";
-        responseBodyStandard = "{\"token\": \"testToken\", \"funcionalId\": \"USR\", \"usuariId\": \"testUserId\"}";
+        responseBodyAdmin = CipherUtil.encrypt("{\"token\": \"testToken\", \"funcionalId\": \"ADM\", \"usuariId\": \"testUserId\"}");
+        responseBodyStandard = CipherUtil.encrypt("{\"token\": \"testToken\", \"funcionalId\": \"USR\", \"usuariId\": \"testUserId\"}");
     }
 
     /**
@@ -87,7 +90,14 @@ class LoginClientTest {
         when(mockResponse.body()).thenReturn(responseBodyStandard);
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
-        String result = loginClient.loginUsuari(VALID_STANDARD_USERNAME, VALID_STANDARD_PASSWORD);
+        String encriptedName = CipherUtil.encrypt(VALID_STANDARD_USERNAME);
+        String Base64Name = Base64.getEncoder().encodeToString(encriptedName.getBytes());
+
+        String contrasenya = VALID_STANDARD_PASSWORD + "|" + Instant.now();
+        String encryptedPassword = CipherUtil.encrypt(contrasenya);
+        String Base64Password = Base64.getEncoder().encodeToString(encryptedPassword.getBytes());
+
+        String result = loginClient.loginUsuari(Base64Name, Base64Password);
 
         assertThat(result).isEqualTo(EXPECTED_LOGIN_MESSAGE);
         assertThat(loginClient.getJwtToken()).isEqualTo("testToken");
@@ -108,7 +118,14 @@ class LoginClientTest {
         when(mockResponse.body()).thenReturn(responseBodyAdmin);
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
-        String result = loginClient.loginUsuari(INVALID_USERNAME, INVALID_PASSWORD);
+        String encriptedName = CipherUtil.encrypt(INVALID_USERNAME);
+        String Base64Name = Base64.getEncoder().encodeToString(encriptedName.getBytes());
+
+        String contrasenya = INVALID_PASSWORD + "|" + Instant.now();
+        String encryptedPassword = CipherUtil.encrypt(contrasenya);
+        String Base64Password = Base64.getEncoder().encodeToString(encryptedPassword.getBytes());
+
+        String result = loginClient.loginUsuari(Base64Name, Base64Password);
 
         assertThat(result).isEqualTo(INCORRECT_CREDENTIAL_MESSAGE);
         assertNull(loginClient.getJwtToken());
@@ -147,6 +164,13 @@ class LoginClientTest {
         when(mockResponse.statusCode()).thenReturn(403);
         when(mockResponse.body()).thenReturn(responseBodyAdmin);
         when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+
+        String encriptedName = CipherUtil.encrypt(VALID_STANDARD_USERNAME);
+        String Base64Name = Base64.getEncoder().encodeToString(encriptedName.getBytes());
+
+        String contrasenya = VALID_STANDARD_PASSWORD + "|" + Instant.now();
+        String encryptedPassword = CipherUtil.encrypt(contrasenya);
+        String Base64Password = Base64.getEncoder().encodeToString(encryptedPassword.getBytes());
 
         String result = loginClient.loginUsuari(VALID_ADMIN_USERNAME, VALID_ADMIN_PASSWORD);
 

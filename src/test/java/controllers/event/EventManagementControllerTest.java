@@ -21,7 +21,7 @@ public class EventManagementControllerTest {
     private LoginClient loginClient;
     private List<Event> list;
 
-    private Event eventTest = adminnew Event(
+    private Event eventTest = new Event(
             "99999",
             "Concert Extremoduro",
             "Concert de despedida.",
@@ -30,7 +30,9 @@ public class EventManagementControllerTest {
             "08007",
             "Barcelona",
             15000,
-            "20:00 - 23:00");
+            "20:00",
+            "22:00",
+            "2024-12-17");
 
     /**
      * Configuració inicial per a les proves.

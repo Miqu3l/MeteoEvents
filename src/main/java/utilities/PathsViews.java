@@ -14,19 +14,19 @@ public class PathsViews {
      * Ruta a la vista de login (login-view.fxml).
      * Vista utilitzada per a la pantalla d'inici de sessió dels usuaris.
      */
-    public static final String LOGIN_VIEW = "/org/meteoevents/meteoevents/login-view.fxml";
+    public static final String LOGIN_VIEW = "/org/meteoevents/meteoevents/login/login-view.fxml";
 
     /**
      * Ruta a la vista principal dels usuaris administradors (principal-view.fxml).
      * Vista utilitzada pels usuaris administradors de l'aplicació.
      */
-    public static final String PRINCIPAL_VIEW = "/org/meteoevents/meteoevents/principal-view.fxml";
+    public static final String PRINCIPAL_VIEW = "/org/meteoevents/meteoevents/principal/principal-view.fxml";
 
     /**
      * Ruta a la vista principal dels usuaris estàndard (principal-standard-view.fxml).
      * Vista utilitzada pels usuaris estàndards de l'aplicació.
      */
-    public static final String PRINCIPAL_STANDARD_VIEW = "/org/meteoevents/meteoevents/principal-standard-view.fxml";
+    public static final String PRINCIPAL_STANDARD_VIEW = "/org/meteoevents/meteoevents/principal/principal-standard-view.fxml";
 
     /**
      * Ruta a la vista de gestió dels usuaris (user-management-view.fxml).

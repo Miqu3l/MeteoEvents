@@ -176,8 +176,6 @@ public class EventStatusController {
         try {
             String response = crudEvent.getStatusById(txt_event_status_id.getText());
 
-            System.out.println(response);
-
             if (response == null) {
                 lbl_status_response.setText(NULL_RESPONSE);
                 return;
@@ -194,8 +192,6 @@ public class EventStatusController {
             hbox_event_status_search.setVisible(true);
             hbox_event_status_estat.setVisible(true);
             txt_event_status_mesures.setVisible(true);
-
-            System.out.println(response);
 
             ObjectMapper mapper = new ObjectMapper();
             StatusEvent statusEvent = mapper.readValue(response, StatusEvent.class);
@@ -333,6 +329,10 @@ public class EventStatusController {
         }
     }
 
+    /**
+     * Actualitza l'estat dels elements gràfics de la interfície d'usuari amb la informació
+     * relacionada amb l'alerta màxima, les condicions meteorològiques i les mesures de prevenció.
+     */
     private void setStatusEvent(){
         switch (alertaMaxima) {
             case 1:
@@ -369,6 +369,10 @@ public class EventStatusController {
         txt_event_status_mesures.setText(String.join("\n", mesuresDePrevencio));
     }
 
+    /**
+     * Inicialitza les variables de les dades meteorològiques i dels nivells d'alerta per fer una nova
+     * petició a la base de dades.
+     */
     private void resetVariables(){windAverage = 0;
         windMax = 0;
         rainProbability = 0;
@@ -387,6 +391,10 @@ public class EventStatusController {
         alertaMaxima = 0;
     }
 
+    /**
+     * Imprimeix les dades per pantalla per un millor control de les dades retornades per la
+     * base de dades.
+     */
     private void printVariable(){
         System.out.println("VelocitatMitjaVent: " + windAverage);
         System.out.println("RatxaMaximaVent: " + windMax);

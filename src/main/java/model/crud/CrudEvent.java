@@ -218,9 +218,7 @@ public class CrudEvent {
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
-            //String decryptedStatus = CipherUtil.decrypt(response.body());
-           //return decryptedStatus;
-            return response.body();
+            return CipherUtil.decrypt(response.body());
         } else {
             return null;
         }

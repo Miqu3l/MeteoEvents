@@ -28,7 +28,8 @@ public class MeasureManagementControllerTest {
             "Temperatura superior a 30°C",
             30.5,
             "°C",
-            "Activar ventilació");
+            "Activar ventilació",
+            "4");
 
     /**
      * Configuració inicial per a les proves.

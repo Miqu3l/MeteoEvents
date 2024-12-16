@@ -10,8 +10,8 @@ module org.meteoevents.meteoevents {
 
     opens org.meteoevents.meteoevents to javafx.fxml;
     exports org.meteoevents.meteoevents;
-    exports controllers;
-    opens controllers to javafx.fxml;
+    exports controllers.principal;
+    opens controllers.principal to javafx.fxml;
     exports controllers.user;
     opens controllers.user to javafx.fxml;
     exports controllers.event;

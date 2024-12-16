@@ -34,6 +34,13 @@ public class AemetRequest {
     }
 
     /**
+     * Constructor per fer les proves.
+     */
+    public AemetRequest(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
+    /**
      * Realitza una sol·licitud a l'API d'AEMET per obtenir la predicció horària d'un municipi
      * específic identificat pel seu codi.
      *
@@ -42,6 +49,10 @@ public class AemetRequest {
      * @throws Exception Si es produeix algun error durant la sol·licitud o el processament.
      */
     public String aemetForecastRequest(String codiMunicipi) throws Exception{
+        if(codiMunicipi == null){
+            return "El codi del municipi no pot ser nul o buit";
+        }
+
         request = HttpRequest.newBuilder()
                 .uri(URI.create(URL + codiMunicipi + AEMET_TOKEN))
                 .GET()
@@ -53,6 +64,9 @@ public class AemetRequest {
         if(response.statusCode()==200){
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(response.body());
+            if(jsonNode.get("descripcion").asText().equals("Error al obtener los datos")){
+                return "El codi del municipi és incorrecte";
+            }
             String data = jsonNode.get("datos").asText();
 
             request = HttpRequest.newBuilder()
@@ -71,5 +85,23 @@ public class AemetRequest {
         }else{
             return "Error en la resposta de la Aemet";
         }
+    }
+
+    /**
+     * Obté el client HTTP associat a aquesta instància.
+     *
+     * @return L'objecte HttpClient actualment configurat per realitzar les sol·licituds HTTP.
+     */
+    public HttpClient getHttpClient() {
+        return httpClient;
+    }
+
+    /**
+     * Estableix un client HTTP personalitzat per a aquesta instància.
+     *
+     * @param httpClient L'objecte HttpClient que s'utilitzarà per realitzar les sol·licituds HTTP.
+     */
+    public void setHttpClient(HttpClient httpClient) {
+        this.httpClient = httpClient;
     }
 }

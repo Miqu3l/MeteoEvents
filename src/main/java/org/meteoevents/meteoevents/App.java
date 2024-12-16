@@ -33,7 +33,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
+    
     /**
      * Mètode main. Punt d'entrada de l'aplicació. Crida al mètode launch per iniciar l'aplicació
      * JavaFX.

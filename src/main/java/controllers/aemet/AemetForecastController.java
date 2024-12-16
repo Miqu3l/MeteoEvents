@@ -12,7 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import model.aemet.AemetRequest;
 import model.aemet.AemetResponse;
 import model.aemet.AlertLevel;
-
+import utilities.Town;
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public class AemetForecastController {
     @FXML
     private TextField txt_previsio_hora;
 
-    // Variables per emmagatzemar dades de la previsió
+    /** Variables per emmagatzemar dades de la previsió */
     private int windAverage = 0;
     private int windMax = 0;
     private int rainProbability = 0;
@@ -70,7 +71,7 @@ public class AemetForecastController {
     private int thermalSens = 0;
     private int relativeHumidity = 0;
 
-    // Variables per emmagatzemar nivells d'alerta
+    /** Variables per emmagatzemar nivells d'alerta */
     private int rainAlert = 0;
     private int snowAlert = 0;
     private int windAverageAlert = 0;
@@ -91,10 +92,16 @@ public class AemetForecastController {
     void onWeatherRequestButtonClick(ActionEvent event) throws Exception {
         boolean dataTrobada = false;
         txt_weather_forecast.setText("");
+        lbl_weather_response.setText("");
 
         AlertLevel alertLevel = new AlertLevel();
 
-        String codiMunicipi = txt_previsio_municipi.getText();
+        String codiMunicipi = obtenerValorConstante(Town.class, txt_previsio_municipi.getText());
+        if(codiMunicipi.equals("No trobat")){
+            lbl_weather_response.setText(TOWN_ERROR);
+            return;
+        }
+
         String dataBuscada = txt_previsio_data.getText() + "T00:00:00";
         String horaBuscada = txt_previsio_hora.getText();
         String periodeBuscat = "";
@@ -164,13 +171,11 @@ public class AemetForecastController {
 
             //Comprova si la resposta és correcte.
             if (!AEMET_ERROR.equals(response)) {
-                //Crea un objeto para convertir la respuesta en un objeto AemetResponse.
-                //En este caso, en una lista de objetos, ya que así es el formato de la respuesta de la Aemet
                 ObjectMapper objectMapper = new ObjectMapper();
                 List<AemetResponse> aemetResponses = objectMapper.readValue(response,
                         new TypeReference<List<AemetResponse>>() {});
 
-                //Extrae los datos de la fecha, la hora y la franja horaria introducida en las variable del inicio.
+                //Extrau les dades de la data, la hora i la franja horària introduïda a les variables de l'inici.
                 AemetResponse aemetResponse = aemetResponses.get(0);
 
                 for (AemetResponse.Prediccion.Dia dia : aemetResponse.getPrediccion().getDia()) {
@@ -303,23 +308,25 @@ public class AemetForecastController {
                             }
                         }
 
-                        txt_weather_forecast.setText("Dades per la data: " + dataBuscada + "\n" +
+                        txt_weather_forecast.setText("Dades per la data: " + dataBuscada.substring(0,10) +
+                                " " + horaBuscada +  "h\n" +
                                 "---------------------------------------------------\n" +
                                 "Velocitat mitja de vent: " + windAverage + "\n" +
-                                "Nivell d'alerta per vent: " + windAverageAlert + "\n" +
                                 "Ratxa màxima de vent: " + windMax + "\n" +
-                                "Nivell d'alerta por ratxa màxima: " + windMaxAlert + "\n" +
                                 "Probabilitat de pluja: " + rainProbability + "\n" +
-                                "Nivell d'alerta per pluja: " + rainAlert + "\n" +
                                 "Probabilitat de tempesta: " + stormProbability + "\n" +
                                 "Neu: " + snowAmount + "\n" +
-                                "Nivell d'alerta per neu: " + snowAlert + "\n" +
                                 "Probabilitat de nevada: " + snowProbability + "\n" +
                                 "Temperatura: " + temperature + "\n" +
+                                "Sensació tèrmica: " + thermalSens + "\n" +
+                                "Humitat relativa: " + relativeHumidity + "\n" +
+                                "---------------------------------------------------\n" +
                                 "Nivell d'alerta per alta temperatura: " + temperatureHighAlert + "\n" +
                                 "Nivell d'alerta per baixa temperatura: " + temperatureLowAlert + "\n" +
-                                "Sensació tèrmica: " + thermalSens + "\n" +
-                                "Humitat relativa: " + relativeHumidity);
+                                "Nivell d'alerta per pluja: " + rainAlert + "\n" +
+                                "Nivell d'alerta per neu: " + snowAlert + "\n" +
+                                "Nivell d'alerta por ratxa màxima: " + windMaxAlert + "\n" +
+                                "Nivell d'alerta per vent: " + windAverageAlert + "\n");
                     }
                 }
                 if (!dataTrobada) {
@@ -332,5 +339,32 @@ public class AemetForecastController {
             System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Obté el valor d'una constant estàtica d'una classe a partir del seu nom.
+     * Aquest mètode utilitza reflexió per accedir a un camp estàtic d'una classe. Si el camp amb el nom especificat
+     * no existeix o no és accessible, es retorna un missatge indicant que no s'ha trobat.
+     *
+     * @param townClass La classe que conté les constants estàtiques.
+     * @param municipi  El nom de la constant que es vol obtenir (ha de coincidir amb el nom exacte del camp).
+     * @return El valor de la constant si existeix i és de tipus String; en cas contrari, retorna "No trobat".
+     * @author ChatGPT - Cómo puedo recuperar el valor de una constante de la clase Town que ha introducido un usuario
+     * de la siguiente forma:
+     * String codiMunicipi = txt_previsio_municipi.getText();
+     */
+    private static String obtenerValorConstante(Class<?> townClass, String municipi) {
+        try {
+            Field[] fields = townClass.getDeclaredFields();
+            for (Field field : fields) {
+                // Comprova si el nom del camp coincideix ignorant majúscules i minúscules
+                if (field.getName().equalsIgnoreCase(municipi) && field.getType().equals(String.class)) {
+                    return (String) field.get(null); // Retorna el valor del camp estàtic
+                }
+            }
+        } catch (IllegalAccessException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return "No trobat";
     }
 }

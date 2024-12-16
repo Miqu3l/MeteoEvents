@@ -1,4 +1,4 @@
-package controllers;
+package controllers.login;
 
 import model.login.LoginClient;
 import org.junit.jupiter.api.BeforeEach;

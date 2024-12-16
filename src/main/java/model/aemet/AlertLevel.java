@@ -9,44 +9,44 @@ package model.aemet;
  */
 public class AlertLevel {
 
-    // Constants per determinar els llindars de velocitat mitjana del vent
+    /** Constants per determinar els llindars de velocitat mitjana del vent. */
     private static final int WIND_SPEED_AVERAGE_1 = 10;
     private static final int WIND_SPEED_AVERAGE_2 = 14;
     private static final int WIND_SPEED_AVERAGE_3 = 18;
     private static final int WIND_SPEED_AVERAGE_4 = 22;
 
-    // Constants per determinar els llindars de velocitat màxima del vent
+    /** Constants per determinar els llindars de velocitat màxima del vent. */
     private static final int WIND_SPEED_MAX_1 = 18;
     private static final int WIND_SPEED_MAX_2 = 21;
     private static final int WIND_SPEED_MAX_3 = 27;
     private static final int WIND_SPEED_MAX_4 = 33;
 
-    // Constants per determinar els llindars de quantitat de pluja
+    /** Constants per determinar els llindars de quantitat de pluja. */
     private static final float RAIN_AMOUNT_1 = 0;
     private static final float RAIN_AMOUNT_2 = 0.5F;
     private static final float RAIN_AMOUNT_3 = 1;
     private static final float RAIN_AMOUNT_4 = 5;
 
-    // Constants per determinar els llindars de quantitat de neu
+    /** Constants per determinar els llindars de quantitat de neu. */
     private static final float SNOW_AMOUNT_1 = 0;
     private static final float SNOW_AMOUNT_2 = 0.5F;
     private static final float SNOW_AMOUNT_3 = 1;
     private static final float SNOW_AMOUNT_4 = 5;
 
-    // Constants per determinar els llindars de temperatures altes
+    /** Constants per determinar els llindars de temperatures altes. */
     private static final int TEMPERATURE_HIGH_1 = 25;
     private static final int TEMPERATURE_HIGH_2 = 28;
     private static final int TEMPERATURE_HIGH_3 = 30;
     private static final int TEMPERATURE_HIGH_4 = 35;
 
-    // Constants per determinar els llindars de temperatures baixes
+    /** Constants per determinar els llindars de temperatures baixes. */
     private static final int TEMPERATURE_LOW_1 = 5;
     private static final int TEMPERATURE_LOW_2 = 2;
     private static final int TEMPERATURE_LOW_3 = 0;
     private static final int TEMPERATURE_LOW_4 = -5;
     private static final int TEMPERATURE_LOW_5 = -10;
 
-    // Atributs per emmagatzemar els valors meteorològics
+    /** Atributs per emmagatzemar els valors meteorològics. */
     private int windAverage;
     private int windMax;
     private float rainAmount;

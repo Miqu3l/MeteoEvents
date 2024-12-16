@@ -1,4 +1,4 @@
-package controllers;
+package controllers.principal;
 
 import controllers.event.EventListController;
 import controllers.user.UserManagementController;

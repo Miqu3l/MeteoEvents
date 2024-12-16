@@ -72,8 +72,6 @@ public class CrudUser {
         String jsonRequest = objectMapper.writeValueAsString(user);
         String encryptedUser = CipherUtil.encrypt(jsonRequest);
 
-        System.out.println(encryptedUser);
-
         request = HttpRequest.newBuilder()
                 .uri(URI.create(URLRequests.USER_CREATE_URL))
                 .header("Content-Type", "application/json")

@@ -1,6 +1,13 @@
 package utilities;
 
+/**
+ * Classe que conté el codi de tots els municipis per a les peticions a l'API.
+ *
+ * @author Miguel Rodríguez Garriga
+ * @version 1.0
+ */
 public class Town {
+    /**  Constants on es guarda els codis dels municipis d'Espanya */
     public static final String Agurain = "01051";
     public static final String Alegría_Dulantzi = "01001";
     public static final String Amurrio = "01002";
