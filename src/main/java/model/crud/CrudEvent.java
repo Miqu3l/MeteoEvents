@@ -206,6 +206,10 @@ public class CrudEvent {
      * @throws Exception Si es produeix un error en l'enviament de la petició HTTP.
      */
     public String getStatusById(String id) throws Exception {
+        if(getEventById(id) == null){
+            return UNKNOWN_EVENT;
+        }
+
         String url = URLRequests.EVENT_STATUS_URL.replace("{id}", id);
 
         request = HttpRequest.newBuilder()
@@ -219,7 +223,9 @@ public class CrudEvent {
 
         if (response.statusCode() == 200) {
             return CipherUtil.decrypt(response.body());
-        } else {
+        }else if (response.statusCode() == 404){
+            return "No s'ha pogut generar el JSON";
+        }else{
             return null;
         }
     }

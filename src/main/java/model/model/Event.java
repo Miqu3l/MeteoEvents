@@ -299,12 +299,7 @@ public class Event {
      */
     @Override
     public String toString() {
-        return "Event{" +
-                "id='" + id + '\'' +
-                ", nom='" + nom + '\'' +
-                ", organitzador='" + organitzador + '\'' +
-                ", hora d'inici='" + horaInici + '\'' +
-                ", data='" + dataEsde + '\'' +
-                '}';
+        return String.format("ID='%s', Nom='%s', Organitzador='%s', Hora d'inici='%s', Data='%s' ",
+                id, nom, organitzador, horaInici, dataEsde);
     }
 }

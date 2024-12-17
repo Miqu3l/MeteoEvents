@@ -176,13 +176,7 @@ public class Measure {
      */
     @Override
     public String toString() {
-        return "Measure{" +
-                "id='" + id + '\'' +
-                ", condicio='" + condicio + '\'' +
-                ", valor=" + valor +
-                ", valorUm='" + valorUm + '\'' +
-                ", accio='" + accio + '\'' +
-                ", nivell alerta='" + nivell_mesura + '\'' +
-                '}';
+        return String.format("ID='%s', Condicio='%s', Accio='%s', Nivell alerta='%s' ",
+                id, condicio, accio, nivell_mesura);
     }
 }

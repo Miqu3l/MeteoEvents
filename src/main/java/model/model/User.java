@@ -353,10 +353,6 @@ public class User {
      */
     @Override
     public String toString() {
-        return "User{" +
-                "ID='" + id + '\'' +
-                ", nom_c='" + nom_c + '\'' +
-                ", funcional_id='" + funcional_id + '\'' +
-                '}';
+        return String.format("ID='%s', Nom='%s', Funcional ID='%s' ", id, nom_c, funcional_id);
     }
 }

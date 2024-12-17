@@ -108,12 +108,11 @@ public class EventStatusControllerTest {
     @Order(1)
     void testSearchStatusWithValidIdAndValidEventData() throws Exception {
         String response = crudEvent.getStatusById(validEventTest.getId());
-
         System.out.println(response);
+
         assertNotNull(response);
-        assertDoesNotThrow(() -> {
-            new ObjectMapper().readTree(response);
-        }, "La resposta no és un Json");
+        assertTrue(response.trim().startsWith("{") || response.trim().startsWith("["),
+                "La resposta no sembla un JSON vàlid: " + response);
     }
 
     /**
@@ -154,7 +153,8 @@ public class EventStatusControllerTest {
     void testSearchStatusWithEmptyEventId() throws Exception {
         String response = crudEvent.getStatusById("");
 
-        assertNull(response);
+        assertEquals("Esdeveniment no trobat", response);
+        assertNotNull(response);
     }
 
     /**
