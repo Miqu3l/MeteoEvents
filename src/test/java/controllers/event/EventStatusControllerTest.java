@@ -14,6 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * d'esdeveniments amb el controlador EventStatusController. Aquesta classe inclou proves
  * per assegurar que es poden cercar i gestionar correctament els estats dels esdeveniments
  * utilitzant diferents dades d'entrada.
+ *
+ * @author Miguel Rodríguez
+ * @version 1.0
  */
 public class EventStatusControllerTest {
 

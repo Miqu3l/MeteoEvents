@@ -12,6 +12,9 @@ import static org.mockito.Mockito.*;
  * Classe de proves unitàries per a la classe AemetRequest.
  * Aquesta classe utilitza mocks per simular les sol·licituds i respostes HTTP
  * necessàries per provar la funcionalitat de la classe AemetRequest.
+ *
+ * @author Miguel Rodríguez
+ * @version 1.0
  */
 public class AemetRequestTest {
 

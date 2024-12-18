@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * Classe de proves per a la gestió de la previsió meteorològica amb el controlador
  * AemetForecastController. Aquesta classe verifica les funcionalitats de cerca de
  * previsions meteorològiques utilitzant diferents codis de municipi.
+ *
+ * @author Miguel Rodríguez
+ * @version 1.0
  */
 public class AemetForecastControllerTest {
 
